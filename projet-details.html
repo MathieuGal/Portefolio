@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Projet - Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo user-name">Mon Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="projets.html" class="active">Projets</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="project-hero">
+            <div class="container">
+                <a href="projets.html" class="back-link"><i class="fas fa-arrow-left"></i> Retour aux projets</a>
+                <h1 id="project-title">Chargement...</h1>
+                <div class="project-tags" id="project-tags">
+                    <!-- Tags injectés par JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="project-content">
+            <div class="container grid-details">
+                <div class="details-main">
+                    <div class="main-image-container">
+                        <img id="project-main-image" src="" alt="Image principale" onerror="this.style.display='none'">
+                    </div>
+                    
+                    <h2>À propos du projet</h2>
+                    <p id="project-description" class="long-description"></p>
+
+                    <h3>Fonctionnalités Clés</h3>
+                    <ul id="project-features" class="features-list">
+                        <!-- Fonctionnalités injectées par JS -->
+                    </ul>
+                </div>
+
+                <div class="details-sidebar">
+                    <div class="card info-card">
+                        <h3>Informations</h3>
+                        <ul class="info-list">
+                            <li><strong>Compétences :</strong> <span id="project-competences"></span></li>
+                        </ul>
+                        <a id="project-github" href="#" target="_blank" class="btn btn-primary full-width">
+                            <i class="fab fa-github"></i> Voir sur GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container gallery-section">
+                <h2>Galerie</h2>
+                <div class="grid gallery-grid" id="project-gallery">
+                    <!-- Galerie injectée par JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 <span class="user-name"></span> - BTS SIO SLAM</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

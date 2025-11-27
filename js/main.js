@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProjects(); // Si sur la page projets
     loadVeille(); // Si sur la page veille
     loadFormation(); // Si sur la page formation
+    loadProjectDetails(); // Si sur la page détails
 });
 
 function loadPersonalInfo() {
@@ -59,13 +60,61 @@ function loadProjects() {
                 <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x200?text=Projet'">
             </div>
             <h3>${project.title}</h3>
-            <p style="color: #6b7280; margin: 0.5rem 0;">${project.description}</p>
+            <p style="color: var(--text-muted); margin: 0.5rem 0;">${project.description}</p>
             <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0;">
-                ${project.tags.map(tag => `<span style="background: #eff6ff; color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem;">${tag}</span>`).join('')}
+                ${project.tags.map(tag => `<span style="background: var(--bg-color); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; border: 1px solid var(--primary-color);">${tag}</span>`).join('')}
             </div>
-            <a href="${project.github}" target="_blank" class="btn btn-secondary" style="width: 100%; display: block; text-align: center;">Voir sur GitHub</a>
+            <a href="projet-details.html?id=${project.id}" class="btn btn-secondary" style="width: 100%; display: block; text-align: center;">Voir les détails</a>
         </div>
     `).join('');
+}
+
+function loadProjectDetails() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = parseInt(urlParams.get('id'));
+    const project = projects.find(p => p.id === projectId);
+
+    if (!project) return;
+
+    // Set Title & Description
+    document.getElementById('project-title').textContent = project.title;
+    document.getElementById('project-description').textContent = project.longDescription || project.description;
+
+    // Set Main Image
+    const mainImage = document.getElementById('project-main-image');
+    if (mainImage) mainImage.src = project.image;
+
+    // Set Tags
+    const tagsContainer = document.getElementById('project-tags');
+    if (tagsContainer) {
+        tagsContainer.innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+    }
+
+    // Set Features
+    const featuresList = document.getElementById('project-features');
+    if (featuresList && project.features) {
+        featuresList.innerHTML = project.features.map(feature => `<li>${feature}</li>`).join('');
+    }
+
+    // Set Competences
+    const competencesEl = document.getElementById('project-competences');
+    if (competencesEl && project.competences) {
+        competencesEl.textContent = project.competences.join(', ');
+    }
+
+    // Set GitHub Link
+    const githubLink = document.getElementById('project-github');
+    if (githubLink) githubLink.href = project.github;
+
+    // Set Gallery
+    const galleryContainer = document.getElementById('project-gallery');
+    if (galleryContainer && project.gallery) {
+        galleryContainer.innerHTML = project.gallery.map(img => `
+            <div class="gallery-item">
+                <img src="${img}" alt="Screenshot ${project.title}" onerror="this.style.display='none'">
+            </div>
+        `).join('');
+    }
 }
 
 function loadVeille() {

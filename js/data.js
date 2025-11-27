@@ -26,8 +26,20 @@ export const projects = [
         id: 1,
         title: "Site E-commerce",
         description: "Développement d'un site de vente en ligne avec gestion panier et admin.",
-        tags: ["PHP", "MySQL", "MVC"],
-        image: "assets/img/projets/projet1.jpg", // Mettez vos images dans ce dossier
+        longDescription: "Ce projet est une plateforme e-commerce complète développée en PHP natif suivant l'architecture MVC. Il permet aux utilisateurs de naviguer dans un catalogue, d'ajouter des produits au panier et de passer commande. L'interface administrateur offre un tableau de bord pour gérer les produits, les catégories et suivre les commandes.",
+        tags: ["PHP", "MySQL", "MVC", "Bootstrap"],
+        image: "assets/img/projets/projet1.jpg",
+        gallery: [
+            "assets/img/projets/projet1.jpg",
+            "assets/img/projets/projet1-admin.jpg",
+            "assets/img/projets/projet1-cart.jpg"
+        ],
+        features: [
+            "Architecture MVC (Modèle-Vue-Contrôleur)",
+            "Système d'authentification sécurisé (Hashage mot de passe)",
+            "Panier dynamique avec gestion des stocks",
+            "Back-office administrateur complet"
+        ],
         github: "https://github.com/...",
         competences: ["Développer une application", "Gérer les données"]
     },
@@ -35,8 +47,19 @@ export const projects = [
         id: 2,
         title: "Application Gestion de Stock",
         description: "Application desktop pour gérer les entrées/sorties de stock.",
-        tags: ["C#", "WPF", "SQL Server"],
+        longDescription: "Application lourde développée en C# WPF pour la gestion des stocks d'une PME. Elle permet de scanner des codes-barres pour les entrées/sorties, de générer des alertes de stock bas et d'exporter des rapports mensuels au format PDF.",
+        tags: ["C#", "WPF", "SQL Server", "Entity Framework"],
         image: "assets/img/projets/projet2.jpg",
+        gallery: [
+            "assets/img/projets/projet2.jpg",
+            "assets/img/projets/projet2-dashboard.jpg"
+        ],
+        features: [
+            "Interface utilisateur moderne en WPF",
+            "Connexion base de données via Entity Framework",
+            "Génération de rapports PDF",
+            "Gestion des droits utilisateurs"
+        ],
         github: "https://github.com/...",
         competences: ["Concevoir une base de données", "Traiter des incidents"]
     }
