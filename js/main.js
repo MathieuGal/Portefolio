@@ -1,9 +1,10 @@
-import { personalInfo, skills, projects, veille, formation } from './data.js';
+import { personalInfo, skills, projects, personalProjects, veille, formation } from './data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPersonalInfo();
     loadSkills(); // Si sur la page d'accueil
     loadProjects(); // Si sur la page projets
+    loadPersonalProjects(); // Si sur la page projets perso
     loadVeille(); // Si sur la page veille
     loadFormation(); // Si sur la page formation
     loadProjectDetails(); // Si sur la page détails
@@ -54,7 +55,18 @@ function loadProjects() {
     const projectsContainer = document.getElementById('projects-container');
     if (!projectsContainer) return;
 
-    projectsContainer.innerHTML = projects.map(project => `
+    projectsContainer.innerHTML = projects.map(project => createProjectCard(project)).join('');
+}
+
+function loadPersonalProjects() {
+    const container = document.getElementById('personal-projects-container');
+    if (!container) return;
+
+    container.innerHTML = personalProjects.map(project => createProjectCard(project)).join('');
+}
+
+function createProjectCard(project) {
+    return `
         <div class="card">
             <div style="height: 200px; background: #e5e7eb; border-radius: 0.5rem; margin-bottom: 1rem; overflow: hidden;">
                 <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x200?text=Projet'">
@@ -66,13 +78,16 @@ function loadProjects() {
             </div>
             <a href="projet-details.html?id=${project.id}" class="btn btn-secondary" style="width: 100%; display: block; text-align: center;">Voir les détails</a>
         </div>
-    `).join('');
+    `;
 }
 
 function loadProjectDetails() {
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = parseInt(urlParams.get('id'));
-    const project = projects.find(p => p.id === projectId);
+
+    // Search in all project lists
+    const allProjects = [...projects, ...personalProjects, ...(veille.projets || [])];
+    const project = allProjects.find(p => p.id === projectId);
 
     if (!project) return;
 
@@ -119,22 +134,28 @@ function loadProjectDetails() {
 
 function loadVeille() {
     const veilleContainer = document.getElementById('veille-container');
-    if (!veilleContainer) return;
+    if (veilleContainer) {
+        document.getElementById('sujet-veille').textContent = veille.sujet;
+        document.getElementById('outils-veille').textContent = veille.outils.join(', ');
 
-    document.getElementById('sujet-veille').textContent = veille.sujet;
-    document.getElementById('outils-veille').textContent = veille.outils.join(', ');
-
-    veilleContainer.innerHTML = veille.articles.map(article => `
-        <div class="card">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                <span style="color: var(--primary-color); font-weight: 600;">${article.source}</span>
-                <span style="color: #6b7280;">${article.date}</span>
+        veilleContainer.innerHTML = veille.articles.map(article => `
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                    <span style="color: var(--primary-color); font-weight: 600;">${article.source}</span>
+                    <span style="color: #6b7280;">${article.date}</span>
+                </div>
+                <h3>${article.titre}</h3>
+                <p style="margin: 1rem 0;">${article.resume}</p>
+                <a href="${article.lien}" class="btn btn-secondary">Lire l'article</a>
             </div>
-            <h3>${article.titre}</h3>
-            <p style="margin: 1rem 0;">${article.resume}</p>
-            <a href="${article.lien}" class="btn btn-secondary">Lire l'article</a>
-        </div>
-    `).join('');
+        `).join('');
+    }
+
+    // Load Veille Projects (Tools developed)
+    const veilleProjetsContainer = document.getElementById('veille-projets-container');
+    if (veilleProjetsContainer && veille.projets) {
+        veilleProjetsContainer.innerHTML = veille.projets.map(project => createProjectCard(project)).join('');
+    }
 }
 
 function loadFormation() {

@@ -40,23 +40,6 @@ export const projects = [
         competences: ["Développer une solution", "Gérer le patrimoine informatique"]
     },
     {
-        id: 2,
-        title: "Scanner de Flux RSS Intelligent",
-        description: "Veille automatisée grâce aux flux RSS.",
-        longDescription: "Outil de veille technologique qui scanne, agrège et filtre des centaines de flux RSS pour extraire les actualités pertinentes. Le système permet de rester à jour sur les dernières avancées sans être noyé sous l'information.",
-        tags: ["Python", "RSS", "Data Parsing", "Backend"],
-        image: "assets/img/projets/placeholder-rss.jpg",
-        gallery: [],
-        features: [
-            "Agrégation multi-sources de flux RSS",
-            "Filtrage intelligent par mots-clés et pertinence",
-            "Déduplication automatique des articles",
-            "Export et notification des veilles qualifiées"
-        ],
-        github: "https://github.com/Fondation-io/RSSScanner",
-        competences: ["Gérer le patrimoine informatique", "Organiser son développement professionnel"]
-    },
-    {
         id: 3,
         title: "Agent de Recherche IA (CrewAI)",
         description: "Découverte et test d'outils d'IA via agents autonomes.",
@@ -72,6 +55,60 @@ export const projects = [
         ],
         github: "https://github.com/Fondation-io/crewai-recherches-Mathieu",
         competences: ["Développer une solution", "Traiter des incidents"]
+    }
+];
+
+export const personalProjects = [
+    {
+        id: 4,
+        title: "Bot de Pêche Minecraft",
+        description: "Bot de pêche automatique avec détection audio/visuelle et QTE.",
+        longDescription: "Un bot sophistiqué pour Minecraft qui automatise la pêche. Il utilise l'analyse audio (WASAPI loopback) ou visuelle (OpenCV) pour détecter les poissons et gère automatiquement les QTE (Quick Time Events) complexes.",
+        tags: ["Python", "OpenCV", "Automation", "Audio Processing"],
+        image: "assets/img/projets/placeholder-fish.jpg",
+        gallery: [],
+        features: [
+            "Détection audio sans micro (WASAPI)",
+            "Résolution automatique des QTE visuels",
+            "Statistiques en temps réel",
+            "Simulation de comportement humain"
+        ],
+        github: "https://github.com/MathieuGal/Auto-fish-bot",
+        competences: ["Développer une solution", "Gérer le patrimoine informatique"]
+    },
+    {
+        id: 5,
+        title: "Vanadia Vote Bot",
+        description: "Bot de vote automatique avec gestion de captcha.",
+        longDescription: "Automatisation du processus de vote pour le serveur Vanadia. Le bot navigue, gère les interactions et notifie l'utilisateur lorsqu'un captcha manuel est requis, optimisant ainsi les récompenses.",
+        tags: ["Python", "Playwright", "Automation", "Bot"],
+        image: "assets/img/projets/placeholder-vote.jpg",
+        gallery: [],
+        features: [
+            "Navigation automatique via Playwright",
+            "Système de notification desktop",
+            "Planificateur de tâches intégré",
+            "Gestion robuste des erreurs"
+        ],
+        github: "https://github.com/MathieuGal/Auto-bot-vote",
+        competences: ["Développer une solution", "Traiter des incidents"]
+    },
+    {
+        id: 6,
+        title: "NDC Space Shooter",
+        description: "Jeu de tir spatial rétro développé en Python.",
+        longDescription: "Un Shoot'em Up classique développé avec la librairie Pyxel. Le joueur contrôle un vaisseau, affronte des vagues d'ennemis infinies et collecte des power-ups dans un style pixel-art rétro.",
+        tags: ["Python", "Pyxel", "Game Dev", "Retro"],
+        image: "assets/img/projets/placeholder-ndc.jpg",
+        gallery: [],
+        features: [
+            "Moteur de jeu fluide avec Pyxel",
+            "Système de vagues infinies",
+            "Power-ups et bonus variés",
+            "Graphismes Pixel Art animés"
+        ],
+        github: "https://github.com/MathieuGal/NDC",
+        competences: ["Développer une solution", "Concevoir et développer une solution applicative"]
     }
 ];
 
@@ -92,6 +129,25 @@ export const veille = {
             source: "Blog Google",
             resume: "Comprendre comment les moteurs de recherche évoluent.",
             lien: "#"
+        }
+    ],
+    projets: [
+        {
+            id: 2,
+            title: "Scanner de Flux RSS Intelligent",
+            description: "Veille automatisée grâce aux flux RSS.",
+            longDescription: "Outil de veille technologique qui scanne, agrège et filtre des centaines de flux RSS pour extraire les actualités pertinentes. Le système permet de rester à jour sur les dernières avancées sans être noyé sous l'information.",
+            tags: ["Python", "RSS", "Data Parsing", "Backend"],
+            image: "assets/img/projets/placeholder-rss.jpg",
+            gallery: [],
+            features: [
+                "Agrégation multi-sources de flux RSS",
+                "Filtrage intelligent par mots-clés et pertinence",
+                "Déduplication automatique des articles",
+                "Export et notification des veilles qualifiées"
+            ],
+            github: "https://github.com/Fondation-io/RSSScanner",
+            competences: ["Gérer le patrimoine informatique", "Organiser son développement professionnel"]
         }
     ]
 };
