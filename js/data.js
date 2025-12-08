@@ -2,13 +2,13 @@
 // C'est ici que vous modifiez le contenu de votre site !
 
 export const personalInfo = {
-    name: "Mathieu", // Remplacez par votre nom complet
+    name: "Mathieu Gallienne", // Remplacez par votre nom complet
     title: "Étudiant BTS SIO - Option SLAM",
     heroTitle: "Développeur d'applications en devenir",
-    heroDescription: "Passionné par le développement. Actuellement en formation BTS SIO option Solutions Logicielles et Applications Métiers.",
+    heroDescription: "Passionné par le développement. BTS SIO option Solutions Logicielles et Applications Métiers.",
     email: "mathieugallienne@orange.fr",
     github: "https://github.com/MathieuGal",
-    linkedin: "https://linkedin.com/in/MathieuGallienne",
+    linkedin: "https://www.linkedin.com/in/mathieu-gallienne-54a992318/",
     cvLink: "assets/documents/cv.pdf"
 };
 
@@ -24,44 +24,54 @@ export const skills = [
 export const projects = [
     {
         id: 1,
-        title: "Site E-commerce",
-        description: "Développement d'un site de vente en ligne avec gestion panier et admin.",
-        longDescription: "Ce projet est une plateforme e-commerce complète développée en PHP natif suivant l'architecture MVC. Il permet aux utilisateurs de naviguer dans un catalogue, d'ajouter des produits au panier et de passer commande. L'interface administrateur offre un tableau de bord pour gérer les produits, les catégories et suivre les commandes.",
-        tags: ["PHP", "MySQL", "MVC", "Bootstrap"],
-        image: "assets/img/projets/projet1.jpg",
-        gallery: [
-            "assets/img/projets/projet1.jpg",
-            "assets/img/projets/projet1-admin.jpg",
-            "assets/img/projets/projet1-cart.jpg"
-        ],
+        title: "Comparateur d'IA Automatisé",
+        description: "Comparaison automatisé d'IA et analyse de performance.",
+        longDescription: "Développement d'un framework de test automatisé permettant d'évaluer et de comparer les réponses de plusieurs LLMs (Claude, GPT, etc.) sur des jeux de données standardisés. Ce projet vise à objectiver le choix des modèles pour différents cas d'usage.",
+        tags: ["Python", "API LLM", "Automation", "Data Analysis"],
+        image: "assets/img/projets/placeholder-ai.jpg",
+        gallery: [],
         features: [
-            "Architecture MVC (Modèle-Vue-Contrôleur)",
-            "Système d'authentification sécurisé (Hashage mot de passe)",
-            "Panier dynamique avec gestion des stocks",
-            "Back-office administrateur complet"
+            "Exécution de prompts en parallèle sur plusieurs modèles",
+            "Analyse comparative des temps de réponse et de la qualité",
+            "Génération automatique de rapports de benchmark",
+            "Interface de visualisation des résultats"
         ],
-        github: "https://github.com/...",
-        competences: ["Développer une application", "Gérer les données"]
+        github: "https://github.com/Fondation-io/Testing_Claude_code",
+        competences: ["Développer une solution", "Gérer le patrimoine informatique"]
     },
     {
         id: 2,
-        title: "Application Gestion de Stock",
-        description: "Application desktop pour gérer les entrées/sorties de stock.",
-        longDescription: "Application lourde développée en C# WPF pour la gestion des stocks d'une PME. Elle permet de scanner des codes-barres pour les entrées/sorties, de générer des alertes de stock bas et d'exporter des rapports mensuels au format PDF.",
-        tags: ["C#", "WPF", "SQL Server", "Entity Framework"],
-        image: "assets/img/projets/projet2.jpg",
-        gallery: [
-            "assets/img/projets/projet2.jpg",
-            "assets/img/projets/projet2-dashboard.jpg"
-        ],
+        title: "Scanner de Flux RSS Intelligent",
+        description: "Veille automatisée grâce aux flux RSS.",
+        longDescription: "Outil de veille technologique qui scanne, agrège et filtre des centaines de flux RSS pour extraire les actualités pertinentes. Le système permet de rester à jour sur les dernières avancées sans être noyé sous l'information.",
+        tags: ["Python", "RSS", "Data Parsing", "Backend"],
+        image: "assets/img/projets/placeholder-rss.jpg",
+        gallery: [],
         features: [
-            "Interface utilisateur moderne en WPF",
-            "Connexion base de données via Entity Framework",
-            "Génération de rapports PDF",
-            "Gestion des droits utilisateurs"
+            "Agrégation multi-sources de flux RSS",
+            "Filtrage intelligent par mots-clés et pertinence",
+            "Déduplication automatique des articles",
+            "Export et notification des veilles qualifiées"
         ],
-        github: "https://github.com/...",
-        competences: ["Concevoir une base de données", "Traiter des incidents"]
+        github: "https://github.com/Fondation-io/RSSScanner",
+        competences: ["Gérer le patrimoine informatique", "Organiser son développement professionnel"]
+    },
+    {
+        id: 3,
+        title: "Agent de Recherche IA (CrewAI)",
+        description: "Découverte et test d'outils d'IA via agents autonomes.",
+        longDescription: "Mise en œuvre d'une architecture multi-agents avec CrewAI pour automatiser la recherche, la découverte et le testing de nouveaux outils d'intelligence artificielle. Les agents collaborent pour explorer le web et synthétiser les trouvailles.",
+        tags: ["Python", "CrewAI", "Agents Autonomes", "LangChain"],
+        image: "assets/img/projets/placeholder-crewai.jpg",
+        gallery: [],
+        features: [
+            "Orchestration d'agents autonomes avec rôles définis",
+            "Recherche web automatisée et ciblée",
+            "Synthèse et classification des outils découverts",
+            "Scénarios de test automatisés pour les outils"
+        ],
+        github: "https://github.com/Fondation-io/crewai-recherches-Mathieu",
+        competences: ["Développer une solution", "Traiter des incidents"]
     }
 ];
 
