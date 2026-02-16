@@ -1,4 +1,4 @@
-import { personalInfo, skills, projects, personalProjects, veille, formation } from './data.js';
+import { personalInfo, skills, projects, personalProjects, veille, epreuves, formation } from './data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPersonalInfo();
@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProjects(); // Si sur la page projets
     loadPersonalProjects(); // Si sur la page projets perso
     loadVeille(); // Si sur la page veille
+    loadEpreuves(); // Si sur la page épreuves
     loadFormation(); // Si sur la page formation
     loadProjectDetails(); // Si sur la page détails
 });
@@ -65,6 +66,13 @@ function loadPersonalProjects() {
     container.innerHTML = personalProjects.map(project => createProjectCard(project)).join('');
 }
 
+function loadEpreuves() {
+    const container = document.getElementById('epreuves-container');
+    if (!container || !epreuves.e4) return;
+
+    container.innerHTML = epreuves.e4.map(project => createProjectCard(project)).join('');
+}
+
 function createProjectCard(project) {
     return `
         <div class="card">
@@ -86,7 +94,7 @@ function loadProjectDetails() {
     const projectId = parseInt(urlParams.get('id'));
 
     // Search in all project lists
-    const allProjects = [...projects, ...personalProjects, ...(veille.projets || [])];
+    const allProjects = [...projects, ...personalProjects, ...(veille.projets || []), ...(epreuves.e4 || [])];
     const project = allProjects.find(p => p.id === projectId);
 
     if (!project) return;
@@ -117,6 +125,13 @@ function loadProjectDetails() {
         competencesEl.textContent = project.competences.join(', ');
     }
 
+    // Set Team (if available)
+    const teamEl = document.getElementById('project-team');
+    if (teamEl && project.equipe) {
+        teamEl.innerHTML = `<strong>Équipe :</strong> ${project.equipe.join(', ')}`;
+        teamEl.style.display = 'block';
+    }
+
     // Set GitHub Link
     const githubLink = document.getElementById('project-github');
     if (githubLink) githubLink.href = project.github;
@@ -130,6 +145,28 @@ function loadProjectDetails() {
             </div>
         `).join('');
     }
+
+    // Set Code Examples (if available)
+    const codeExamplesContainer = document.getElementById('code-examples-container');
+    if (codeExamplesContainer && project.codeExamples && project.codeExamples.length > 0) {
+        codeExamplesContainer.innerHTML = `
+            <h2 style="margin-top: 2rem; color: var(--primary-color);">Exemples de Code</h2>
+            ${project.codeExamples.map(example => `
+                <div class="code-example" style="margin: 1.5rem 0;">
+                    <h3 style="margin-bottom: 0.5rem;">${example.title}</h3>
+                    <pre style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.875rem;"><code class="language-${example.language}">${escapeHtml(example.code)}</code></pre>
+                </div>
+            `).join('')}
+        `;
+        codeExamplesContainer.style.display = 'block';
+    }
+}
+
+// Helper function to escape HTML in code examples
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function loadVeille() {
