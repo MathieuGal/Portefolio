@@ -155,191 +155,20 @@ Points techniques clés :
 export const personalProjects = [
     {
         id: 4,
-        title: "Bot de Pêche Minecraft",
-        description: "Bot de pêche automatique avec détection audio/visuelle et QTE.",
-        longDescription: `Bot d'automatisation sophistiqué pour Minecraft qui reproduit le comportement d'un joueur lors de la pêche. Ce projet combine plusieurs techniques avancées de programmation : traitement audio en temps réel, vision par ordinateur et simulation d'entrées utilisateur.
-
-Le système propose deux modes de détection complémentaires :
-• Mode Audio (WASAPI Loopback) : Capture le son système sans micro externe et détecte le "splash" caractéristique d'un poisson mordant à l'hameçon. Analyse RMS et détection de pics sonores.
-• Mode Visuel (OpenCV) : Détection des cercles de couleur pour les QTE (Quick Time Events), avec calcul de circularité et transformation de Hough.
-
-Architecture modulaire avec séparation claire des responsabilités : détection audio, détection visuelle, contrôleur d'actions, et orchestrateur principal. Le bot gère jusqu'à 6 QTE consécutifs avec timing précis.
-
-Points techniques : PyAudioWPatch pour le loopback Windows, OpenCV pour la vision, numpy pour le traitement de signal, et simulation de délais humains pour éviter la détection.`,
-        tags: ["Python", "OpenCV", "Automation", "Audio Processing"],
-        image: "assets/img/projets/placeholder-fish.jpg",
+        title: "LinkedIn Bot",
+        description: "Bot d'automatisation IA pour LinkedIn.",
+        longDescription: "Bot qui publie automatiquement sur LinkedIn un résumé d'article tech généré par IA (Gemini), du lundi au vendredi à 11h00.\n\nArchitecture technique :\n• main.py : orchestrateur et planificateur\n• news_fetcher.py : récupération d'articles RSS et déduplication via Convex\n• content_generator.py : génération via l'API Google Gemini\n• linkedin_api.py : interaction avec l'API REST v2 de LinkedIn\n\nLe projet est entièrement conteneurisé avec Docker pour faciliter le déploiement.",
+        tags: ["Python", "IA", "Gemini", "API LinkedIn", "Docker"],
+        image: "assets/img/projets/placeholder-ai.jpg",
         gallery: [],
         features: [
-            "Détection audio sans micro (WASAPI)",
-            "Résolution automatique des QTE visuels",
-            "Statistiques en temps réel",
-            "Simulation de comportement humain"
+            "Récupération d'articles tech via RSS",
+            "Génération de résumés par IA (Gemini)",
+            "Publication automatique sur LinkedIn",
+            "Déploiement via Docker"
         ],
-        github: "https://github.com/MathieuGal/Auto-fish-bot",
-        competences: ["Développer une solution", "Gérer le patrimoine informatique"],
-        codeExamples: [
-            {
-                title: "Détection audio du splash (morsure)",
-                language: "python",
-                code: `def detect_splash_sound(self) -> bool:
-    """Détecte un son de splash (morsure de poisson)"""
-    try:
-        # Récupérer les données audio du buffer
-        audio_data = self.audio_queue.get(timeout=0.1)
-
-        # Calculer l'amplitude RMS (Root Mean Square)
-        rms = np.sqrt(np.mean(audio_data**2))
-
-        # Ajouter à l'historique pour comparaison
-        self.amplitude_history.append(rms)
-        if len(self.amplitude_history) > self.history_size:
-            self.amplitude_history.pop(0)
-
-        # Détecter un pic sonore significatif
-        if len(self.amplitude_history) >= 3:
-            avg_amplitude = np.mean(self.amplitude_history[:-1])
-            current_amplitude = self.amplitude_history[-1]
-
-            # Le son doit être 3x plus fort que la moyenne
-            amplitude_ratio = current_amplitude / (avg_amplitude + 1e-6)
-
-            if (current_amplitude > self.threshold and
-                amplitude_ratio > 3.0):
-                print("🎣 SPLASH DÉTECTÉ!")
-                return True
-
-        return False
-    except queue.Empty:
-        return False`
-            },
-            {
-                title: "Détection visuelle des cercles QTE",
-                language: "python",
-                code: `def detect_circles(self, image: np.ndarray):
-    """Détecte les cercles rouge (cible) et blanc (curseur)"""
-    # Convertir en HSV pour meilleure détection des couleurs
-    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-
-    # Masque pour le rouge (wrap autour dans HSV)
-    mask1 = cv2.inRange(hsv, np.array([0, 100, 100]),
-                        np.array([10, 255, 255]))
-    mask2 = cv2.inRange(hsv, np.array([170, 100, 100]),
-                        np.array([180, 255, 255]))
-    red_mask = cv2.bitwise_or(mask1, mask2)
-
-    # Nettoyer avec morphologie
-    kernel = np.ones((5, 5), np.uint8)
-    red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_CLOSE, kernel)
-
-    # Détecter les contours et vérifier la circularité
-    contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL,
-                                    cv2.CHAIN_APPROX_SIMPLE)
-
-    for contour in contours:
-        area = cv2.contourArea(contour)
-        ((x, y), radius) = cv2.minEnclosingCircle(contour)
-        circularity = 4 * np.pi * area / (cv2.arcLength(contour, True) ** 2)
-
-        if circularity > 0.7:  # Forme suffisamment circulaire
-            return (int(x), int(y), int(radius))
-
-    return None`
-            }
-        ]
-    },
-    {
-        id: 5,
-        title: "Vanadia Vote Bot",
-        description: "Bot de vote automatique avec gestion de captcha.",
-        longDescription: `Bot d'automatisation web développé avec Playwright pour automatiser le processus de vote sur un serveur de jeu. Ce projet illustre les techniques modernes d'automatisation de navigateur et de contournement des systèmes anti-bot.
-
-Fonctionnalités principales :
-• Navigation autonome avec Playwright en mode headless ou visible
-• Connexion automatique avec gestion des formulaires dynamiques
-• Détection intelligente de captcha (reCAPTCHA, hCaptcha)
-• Système de notification desktop quand une intervention manuelle est requise
-• Profil de navigateur persistant pour maintenir les sessions
-
-Le bot utilise des techniques anti-détection : user-agent personnalisé, masquage de la propriété webdriver, injection de scripts pour simuler un navigateur classique. Il gère les timeouts, les erreurs réseau et les redirections de manière robuste.
-
-Architecture asynchrone avec asyncio permettant une gestion efficace des temps d'attente et des événements de page.`,
-        tags: ["Python", "Playwright", "Automation", "Bot"],
-        image: "assets/img/projets/placeholder-vote.jpg",
-        gallery: [],
-        features: [
-            "Navigation automatique via Playwright",
-            "Système de notification desktop",
-            "Planificateur de tâches intégré",
-            "Gestion robuste des erreurs"
-        ],
-        github: "https://github.com/MathieuGal/Auto-bot-vote",
-        competences: ["Développer une solution", "Traiter des incidents"],
-        codeExamples: [
-            {
-                title: "Configuration anti-détection Playwright",
-                language: "python",
-                code: `async def run_vote_process(self, headless=True):
-    """Lance le navigateur avec configuration anti-détection"""
-    async with async_playwright() as p:
-        # Profil persistant pour garder les cookies
-        user_data_dir = Path("data/browser_profile")
-
-        context = await p.chromium.launch_persistent_context(
-            str(user_data_dir),
-            headless=headless,
-            args=[
-                '--disable-blink-features=AutomationControlled',
-                '--disable-web-security',
-                '--no-sandbox'
-            ],
-            viewport={'width': 1280, 'height': 720},
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                      'AppleWebKit/537.36 Chrome/131.0.0.0 Safari/537.36',
-            locale='fr-FR',
-            timezone_id='Europe/Paris'
-        )
-
-        page = context.pages[0]
-
-        # Injecter script pour masquer l'automatisation
-        await page.add_init_script("""
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined
-            });
-            window.navigator.chrome = { runtime: {} };
-        """)`
-            },
-            {
-                title: "Détection et notification de captcha",
-                language: "python",
-                code: `async def detect_captcha_and_notify(self, page):
-    """Détecte la présence d'un captcha et notifie l'utilisateur"""
-    captcha_selectors = [
-        'iframe[src*="recaptcha"]',
-        'iframe[src*="hcaptcha"]',
-        '.g-recaptcha',
-        '.h-captcha'
-    ]
-
-    for selector in captcha_selectors:
-        try:
-            captcha = await page.wait_for_selector(selector, timeout=5000)
-            if captcha:
-                # Notification système
-                notification.notify(
-                    title="Vanadia Vote Bot",
-                    message="Captcha détecté! Intervention requise.",
-                    timeout=0  # Persistant
-                )
-
-                print("🚨 CAPTCHA DÉTECTÉ - Action manuelle requise")
-                return True
-        except PlaywrightTimeoutError:
-            continue
-
-    return False`
-            }
-        ]
+        github: "https://github.com/MathieuGal/Linkedin-Manager",
+        competences: ["Développer une solution", "Mettre à disposition des utilisateurs un service informatique"]
     },
     {
         id: 6,
