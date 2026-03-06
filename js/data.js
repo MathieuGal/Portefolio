@@ -159,8 +159,12 @@ export const personalProjects = [
         description: "Bot d'automatisation IA pour LinkedIn.",
         longDescription: "Bot qui publie automatiquement sur LinkedIn un résumé d'article tech généré par IA (Gemini), du lundi au vendredi à 11h00.\n\nArchitecture technique :\n• main.py : orchestrateur et planificateur\n• news_fetcher.py : récupération d'articles RSS et déduplication via Convex\n• content_generator.py : génération via l'API Google Gemini\n• linkedin_api.py : interaction avec l'API REST v2 de LinkedIn\n\nLe projet est entièrement conteneurisé avec Docker pour faciliter le déploiement.",
         tags: ["Python", "IA", "Gemini", "API LinkedIn", "Docker"],
-        image: "assets/img/projets/placeholder-ai.jpg",
-        gallery: [],
+        image: "js/Image/linkedin.png",
+        gallery: [
+            "js/Image/Linkedin post json.png",
+            "js/Image/Post linkedin.png",
+            "js/Image/Docker.png",
+        ],
         features: [
             "Récupération d'articles tech via RSS",
             "Génération de résumés par IA (Gemini)",
