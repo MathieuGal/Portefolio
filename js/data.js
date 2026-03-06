@@ -36,7 +36,7 @@ Points techniques clés :
 • Export des résultats en formats JSON et CSV pour analyse approfondie
 • Interface CLI intuitive pour lancer les benchmarks`,
         tags: ["Python", "API LLM", "Automation", "Data Analysis"],
-        image: "assets/img/projets/placeholder-ai.jpg",
+        image: "js/Image/claude.jpg",
         gallery: [],
         features: [
             "Exécution de prompts en parallèle sur plusieurs modèles",
@@ -194,21 +194,49 @@ export const personalProjects = [
 ];
 
 export const veille = {
-    sujet: "L'Intelligence Artificielle dans le développement web",
-    outils: ["Feedly", "Twitter", "Dev.to"],
+    sujet: "L'impact écologique de l'Intelligence Artificielle",
+    outils: ["Google Scholar", "MIT Tech Review", "Rapports ADEME", "Revues Scientifiques"],
+    description: `L'intelligence artificielle connaît aujourd'hui une croissance fulgurante, portée par des modèles toujours plus complexes et performants (LLMs, génération d'images, etc.). Cette avancée technologique offre des perspectives inédites dans de nombreux domaines (santé, automatisation, recherche). Cependant, cette course à la performance a un coût écologique majeur qui est souvent invisibilisé.
+
+L'entraînement et le fonctionnement continu de ces modèles d'IA nécessitent des infrastructures massives, principalement des data centers équipés de milliers de GPUs fonctionnant jour et nuit. Ces installations sont extrêmement gourmandes en énergie électrique, souvent produite à partir d'énergies fossiles dans de nombreuses régions du monde, ce qui fait exploser l'empreinte carbone du secteur de la tech.
+
+De plus, au-delà de la seule consommation électrique, la question du refroidissement des serveurs est cruciale. Les data centers consomment des millions de litres d'eau potable pour maintenir les équipements à des températures optimales, créant des tensions sur les ressources hydriques locales, parfois dans des zones déjà soumises à un stress hydrique.
+
+La fabrication même des composants matériels (serveurs, puces spécialisées) implique l'extraction de métaux rares, générant une pollution locale importante et posant des problèmes éthiques et environnementaux tout au long de la chaîne d'approvisionnement. Face à l'urgence climatique, il devient impératif d'adopter des pratiques de "Green AI", d'optimiser les algorithmes pour réduire leur consommation, et de s'interroger sur la pertinence du déploiement de l'IA pour chaque usage ("frugalité numérique").`,
     articles: [
         {
-            titre: "Comment l'IA change la façon dont nous codons",
-            date: "15/10/2023",
-            source: "Dev.to",
-            resume: "Analyse de l'impact de Copilot et ChatGPT sur la productivité des développeurs.",
+            titre: "Comment l'IA accélère la crise climatique",
+            date: "Octobre 2023",
+            source: "Reporterre",
+            resume: "Une analyse détaillée de la consommation énergétique grandissante des géants de la tech poussée par l'IA.",
             lien: "#"
         },
         {
-            titre: "L'avenir du SEO avec l'IA",
-            date: "22/09/2023",
-            source: "Blog Google",
-            resume: "Comprendre comment les moteurs de recherche évoluent.",
+            titre: "Making AI Less 'Thirsty'",
+            date: "Avril 2023",
+            source: "MIT Technology Review",
+            resume: "Enquête sur la consommation d'eau massive des data centers pour refroidir les serveurs.",
+            lien: "#"
+        },
+        {
+            titre: "The carbon footprint of machine learning",
+            date: "Janvier 2024",
+            source: "Nature",
+            resume: "Étude scientifique quantifiant les émissions de gaz à effet de serre liées à l'entraînement des modèles d'intelligence artificielle.",
+            lien: "#"
+        },
+        {
+            titre: "L'impact environnemental du numérique",
+            date: "Mars 2023",
+            source: "ADEME",
+            resume: "Synthèse sur le cycle de vie des équipements numériques et la part croissante des data centers.",
+            lien: "#"
+        },
+        {
+            titre: "Vers une Green AI : optimiser plutôt que maximiser",
+            date: "Novembre 2023",
+            source: "CNRS Le Journal",
+            resume: "Pistes de recherche pour réduire la complexité des modèles pour réduire le coût écologique.",
             lien: "#"
         }
     ],
@@ -230,7 +258,7 @@ Le système gère plusieurs formats de date (RFC 822, ISO 8601), extrait le cont
 
 Points forts : gestion robuste des erreurs, logging détaillé, architecture modulaire permettant d'ajouter facilement de nouvelles sources ou analyseurs.`,
             tags: ["Python", "RSS", "Data Parsing", "Backend"],
-            image: "assets/img/projets/placeholder-rss.jpg",
+            image: "js/Image/RSS-4.jpg",
             gallery: [],
             features: [
                 "Agrégation multi-sources de flux RSS",

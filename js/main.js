@@ -175,6 +175,11 @@ function loadVeille() {
         document.getElementById('sujet-veille').textContent = veille.sujet;
         document.getElementById('outils-veille').textContent = veille.outils.join(', ');
 
+        const descContainer = document.getElementById('veille-description-container');
+        if (descContainer && veille.description) {
+            descContainer.innerHTML = veille.description.replace(/\n/g, '<br/>');
+        }
+
         veilleContainer.innerHTML = veille.articles.map(article => `
             <div class="card">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
