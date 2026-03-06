@@ -141,7 +141,9 @@ function loadProjectDetails() {
     if (galleryContainer && project.gallery) {
         galleryContainer.innerHTML = project.gallery.map(img => `
             <div class="gallery-item">
-                <img src="${img}" alt="Screenshot ${project.title}" onerror="this.style.display='none'">
+                <a href="${img}" target="_blank" title="Cliquez pour agrandir">
+                    <img src="${img}" alt="Screenshot ${project.title}" onerror="this.style.display='none'">
+                </a>
             </div>
         `).join('');
     }
