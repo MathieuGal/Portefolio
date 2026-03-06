@@ -131,95 +131,24 @@ Points techniques clés :
     },
     {
         id: 3,
-        title: "Agent de Recherche IA (CrewAI)",
-        description: "Découverte et test d'outils d'IA via agents autonomes.",
-        longDescription: `Mise en œuvre d'une architecture multi-agents avec le framework CrewAI pour automatiser la veille technologique sur les outils d'intelligence artificielle. Ce projet illustre le concept d'agents autonomes collaboratifs, où chaque agent a un rôle spécifique et contribue à un objectif commun.
-
-L'architecture repose sur trois agents spécialisés :
-• Agent Chercheur : explore le web, identifie les nouveaux outils IA
-• Agent Analyste : évalue la pertinence et les fonctionnalités des outils découverts
-• Agent Rédacteur : synthétise les informations en rapports structurés
-
-Chaque agent utilise des outils (tools) comme la recherche web, la lecture de documentation, ou l'analyse de code. Le système orchestre leur collaboration de manière autonome, permettant une veille technologique continue sans intervention humaine.
-
-Technologies utilisées : CrewAI, LangChain, Serper API pour la recherche web, et différents LLMs comme backbone.`,
-        tags: ["Python", "CrewAI", "Agents Autonomes", "LangChain"],
-        image: "assets/img/projets/placeholder-crewai.jpg",
-        gallery: [],
+        title: "AgentSea",
+        description: "Intégration et développement d'agents autonomes naviguant sur le web.",
+        longDescription: `Mise en œuvre d'outils et d'agents pour l'interaction automatisée avec des interfaces web en utilisant la technologie AgentSea. Le projet se focalise sur la création d'agents capables de comprendre et d'interagir avec le web.`,
+        tags: ["Python", "AgentSea", "Agents Autonomes", "Web Automation"],
+        image: "js/Image/Dashboard Agentsea.png",
+        gallery: [
+            "js/Image/Brainstorming.png",
+            "js/Image/Kanban Agentsea.png",
+            "js/Image/Preview Fichier Agent sea.png",
+            "js/Image/Task Agentsea.png"
+        ],
         features: [
-            "Orchestration d'agents autonomes avec rôles définis",
-            "Recherche web automatisée et ciblée",
-            "Synthèse et classification des outils découverts",
-            "Scénarios de test automatisés pour les outils"
+            "Création d'agents web autonomes",
+            "Automatisation d'interactions complexes",
+            "Navigation autonome"
         ],
-        github: "https://github.com/Fondation-io/crewai-recherches-Mathieu",
-        competences: ["Développer une solution", "Traiter des incidents"],
-        codeExamples: [
-            {
-                title: "Architecture multi-agents CrewAI",
-                language: "python",
-                code: `from crewai import Agent, Crew, Process, Task, LLM
-from crewai.project import CrewBase, agent, task, crew
-from research_crew.tools.webtools import web_news, yt_recent, perplexity_search
-from research_crew.tools.youtools import yt_transcript, yt_channel_recent_videos
-
-@CrewBase
-class ResearchCrew:
-    agents_config = "config/agents.yaml"
-    tasks_config = "config/tasks.yaml"
-    _llm = LLM(
-        model=os.getenv("MODEL", "gpt-3.5-turbo"),
-        base_url=os.getenv("BASE_URL", "https://openrouter.ai/api/v1"),
-        api_key=os.getenv("OPENROUTER_API_KEY")
-    )
-
-    @agent
-    def researcher(self) -> Agent:
-        return Agent(
-            config=self.agents_config["researcher"],
-            llm=self._llm,
-            tools=[web_news, yt_recent, yt_transcript]
-        )
-
-    @agent
-    def video_selector(self) -> Agent:
-        return Agent(config=self.agents_config["video_selector"], llm=self._llm)
-
-    @agent
-    def detailed_analyzer(self) -> Agent:
-        return Agent(
-            config=self.agents_config["detailed_analyzer"],
-            llm=self._llm,
-            tools=[yt_transcript]
-        )`
-            },
-            {
-                title: "Crew de veille journalière YouTube",
-                language: "python",
-                code: `def daily_surveillance_crew(self) -> Crew:
-    """Crew spécialisé pour la veille journalière YouTube"""
-    return Crew(
-        agents=[
-            self.researcher(),          # Collecte les vidéos
-            self.video_selector(),      # Sélectionne les pertinentes
-            self.detailed_analyzer(),   # Analyse en profondeur
-            self.topic_researcher()     # Recherche complémentaire
-        ],
-        tasks=[
-            self.daily_video_collection(),
-            self.video_selection(),
-            self.detailed_video_analysis(),
-            self.topic_deep_research()
-        ],
-        process=Process.sequential,
-        verbose=True
-    )
-
-# Lancement de la veille
-crew = ResearchCrew()
-result = crew.daily_surveillance_crew().kickoff()`
-            }
-        ]
+        github: "https://github.com/Fondation-io/agentsea",
+        competences: ["Développer une solution", "Traiter des incidents"]
     }
 ];
 
