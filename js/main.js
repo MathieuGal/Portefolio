@@ -180,6 +180,12 @@ function loadVeille() {
             descContainer.innerHTML = veille.description.replace(/\n/g, '<br/>');
         }
 
+        const imgVeille = document.getElementById('image-veille');
+        if (imgVeille && veille.image) {
+            imgVeille.src = veille.image;
+            imgVeille.style.display = 'inline-block';
+        }
+
         veilleContainer.innerHTML = veille.articles.map(article => `
             <div class="card">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">

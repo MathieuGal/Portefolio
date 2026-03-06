@@ -196,6 +196,7 @@ export const personalProjects = [
 export const veille = {
     sujet: "L'impact écologique de l'Intelligence Artificielle",
     outils: ["Google Scholar", "MIT Tech Review", "Rapports ADEME", "Revues Scientifiques"],
+    image: "js/Image/Pollution-numerique-IA-1024x576.jpg",
     description: `L'intelligence artificielle connaît aujourd'hui une croissance fulgurante, portée par des modèles toujours plus complexes et performants (LLMs, génération d'images, etc.). Cette avancée technologique offre des perspectives inédites dans de nombreux domaines (santé, automatisation, recherche). Cependant, cette course à la performance a un coût écologique majeur qui est souvent invisibilisé.
 
 L'entraînement et le fonctionnement continu de ces modèles d'IA nécessitent des infrastructures massives, principalement des data centers équipés de milliers de GPUs fonctionnant jour et nuit. Ces installations sont extrêmement gourmandes en énergie électrique, souvent produite à partir d'énergies fossiles dans de nombreuses régions du monde, ce qui fait exploser l'empreinte carbone du secteur de la tech.
