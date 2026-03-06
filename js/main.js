@@ -141,9 +141,7 @@ function loadProjectDetails() {
     if (galleryContainer && project.gallery) {
         galleryContainer.innerHTML = project.gallery.map(img => `
             <div class="gallery-item">
-                <a href="${img}" target="_blank" title="Cliquez pour agrandir">
-                    <img src="${img}" alt="Screenshot ${project.title}" onerror="this.style.display='none'">
-                </a>
+                <img src="${img}" alt="Screenshot ${project.title}" style="cursor: pointer;" onclick="openModal('${img}')" onerror="this.style.display='none'">
             </div>
         `).join('');
     }
@@ -208,3 +206,37 @@ function loadFormation() {
         <p style="margin-top: 1rem;">${formation.description}</p>
     `;
 }
+
+// Modal Functions for Gallery
+window.openModal = function (imageSrc) {
+    let modal = document.getElementById('image-modal');
+    if (!modal) {
+        // Create modal if it doesn't exist
+        modal = document.createElement('div');
+        modal.id = 'image-modal';
+        modal.className = 'modal-overlay';
+        modal.innerHTML = `
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modal-img">
+        `;
+        // Close modal when clicking outside the image
+        modal.onclick = function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        };
+        document.body.appendChild(modal);
+    }
+    const modalImg = document.getElementById('modal-img');
+    modalImg.src = imageSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+};
+
+window.closeModal = function () {
+    const modal = document.getElementById('image-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+};
