@@ -197,47 +197,49 @@ export const veille = {
     sujet: "L'impact écologique de l'Intelligence Artificielle",
     outils: ["Google Scholar", "MIT Tech Review", "Rapports ADEME", "Revues Scientifiques"],
     image: "js/Image/Pollution-numerique-IA-1024x576.jpg",
-    description: `L'intelligence artificielle connaît aujourd'hui une croissance fulgurante, portée par des modèles toujours plus complexes et performants (LLMs, génération d'images, etc.). Cette avancée technologique offre des perspectives inédites dans de nombreux domaines (santé, automatisation, recherche). Cependant, cette course à la performance a un coût écologique majeur qui est souvent invisibilisé.
+    description: `L'intelligence artificielle connaît aujourd'hui une croissance fulgurante, portée par des modèles toujours plus complexes et performants (LLMs, génération d'images, etc.). Cette avancée offre des perspectives inédites dans la santé, l'automatisation, ou encore la recherche scientifique. Cependant, son développement soulève logiquement des questions quant à son coût écologique, qui mérite une analyse nuancée.
 
-L'entraînement et le fonctionnement continu de ces modèles d'IA nécessitent des infrastructures massives, principalement des data centers équipés de milliers de GPUs fonctionnant jour et nuit. Ces installations sont extrêmement gourmandes en énergie électrique, souvent produite à partir d'énergies fossiles dans de nombreuses régions du monde, ce qui fait exploser l'empreinte carbone du secteur de la tech.
+Il est indéniable que l'entraînement de modèles massifs nécessite des infrastructures importantes, principalement des data centers équipés de milliers de GPUs fonctionnant en continu. Cette demande en puissance de calcul se traduit par une consommation électrique substantielle. Toutefois, l'industrie prend la mesure du problème et innove. De plus en plus de data centers sont alimentés, partiellement ou totalement, par des énergies renouvelables (solaire, éolien, hydroélectrique), réduisant significativement leur empreinte carbone par rapport aux estimations basées sur le mix énergétique mondial moyen.
 
-De plus, au-delà de la seule consommation électrique, la question du refroidissement des serveurs est cruciale. Les data centers consomment des millions de litres d'eau potable pour maintenir les équipements à des températures optimales, créant des tensions sur les ressources hydriques locales, parfois dans des zones déjà soumises à un stress hydrique.
+Concernant la consommation d'eau, souvent pointée du doigt pour le refroidissement des serveurs, la réalité technique est également en pleine mutation. Si les systèmes de refroidissement par évaporation traditionnels consommaient beaucoup d'eau potable, de nombreux data centers modernes déploient désormais des systèmes de refroidissement en circuit fermé. Ces installations réutilisent la même eau indéfiniment, annulant presque totalement le gaspillage des ressources hydriques locales. D'autres approches, comme le "free cooling" (utilisation de l'air extérieur dans les régions froides) ou l'immersion des serveurs dans des liquides diélectriques, repoussent encore l'efficacité énergétique (PUE).
 
-La fabrication même des composants matériels (serveurs, puces spécialisées) implique l'extraction de métaux rares, générant une pollution locale importante et posant des problèmes éthiques et environnementaux tout au long de la chaîne d'approvisionnement. Face à l'urgence climatique, il devient impératif d'adopter des pratiques de "Green AI", d'optimiser les algorithmes pour réduire leur consommation, et de s'interroger sur la pertinence du déploiement de l'IA pour chaque usage ("frugalité numérique").`,
+Par ailleurs, l'IA n'est pas qu'une source de consommation : elle s'avère être un outil puissant pour la transition écologique. Elle est massivement employée pour optimiser les réseaux électriques (smart grids), améliorer les rendements agricoles sans surconsommation d'eau, ou encore concevoir de nouveaux matériaux plus durables.
+
+La question centrale n'est donc pas d'arrêter le développement de l'IA, mais de l'orienter vers la "Green AI". Cela implique un effort constant sur l'optimisation des algorithmes (des modèles plus petits et efficaces), l'amélioration de l'efficacité matérielle (puces spécialisées moins énergivores comme les TPUs), et une réflexion sur la "frugalité numérique" : s'assurer que le déploiement d'une IA pour un cas d'usage précis apporte une valeur qui justifie son coût énergétique.`,
     articles: [
         {
-            titre: "Comment l'IA accélère la crise climatique",
-            date: "Octobre 2023",
-            source: "Reporterre",
-            resume: "Une analyse détaillée de la consommation énergétique grandissante des géants de la tech poussée par l'IA.",
-            lien: "#"
-        },
-        {
-            titre: "Making AI Less 'Thirsty'",
-            date: "Avril 2023",
-            source: "MIT Technology Review",
-            resume: "Enquête sur la consommation d'eau massive des data centers pour refroidir les serveurs.",
-            lien: "#"
-        },
-        {
-            titre: "The carbon footprint of machine learning",
+            titre: "Évaluer la vraie consommation d'eau et d'énergie de l'IA",
             date: "Janvier 2024",
-            source: "Nature",
-            resume: "Étude scientifique quantifiant les émissions de gaz à effet de serre liées à l'entraînement des modèles d'intelligence artificielle.",
+            source: "GreenIT",
+            resume: "Une analyse nuancée sur les innovations dans le refroidissement des data centers (circuits fermés) et l'utilisation croissante d'énergies renouvelables.",
             lien: "#"
         },
         {
-            titre: "L'impact environnemental du numérique",
-            date: "Mars 2023",
-            source: "ADEME",
-            resume: "Synthèse sur le cycle de vie des équipements numériques et la part croissante des data centers.",
+            titre: "Comment l'IA peut aider à résoudre la crise climatique",
+            date: "Décembre 2023",
+            source: "World Economic Forum",
+            resume: "Aperçu des technologies d'IA utilisées pour optimiser les réseaux électriques, la logistique et l'agriculture de précision.",
             lien: "#"
         },
         {
-            titre: "Vers une Green AI : optimiser plutôt que maximiser",
+            titre: "Efficiency and Carbon Footprint of Machine Learning",
             date: "Novembre 2023",
-            source: "CNRS Le Journal",
-            resume: "Pistes de recherche pour réduire la complexité des modèles pour réduire le coût écologique.",
+            source: "Google Research",
+            resume: "Étude interne de Google démontrant comment les puces spécialisées (TPUs) et le mix énergétique réduisent massivement les émissions liées à l'entraînement des modèles.",
+            lien: "#"
+        },
+        {
+            titre: "Les promesses de la Green AI",
+            date: "Février 2024",
+            source: "CNRS - Le Journal",
+            resume: "Tour d'horizon des recherches visant à rendre les algorithmes d'apprentissage profond moins gourmands en calcul tout en conservant leurs performances.",
+            lien: "#"
+        },
+        {
+            titre: "Vers des data centers éco-responsables",
+            date: "Octobre 2023",
+            source: "Techniques de l'Ingénieur",
+            resume: "Focus technique sur le \"Free cooling\", l'immersion des serveurs, et la récupération de chaleur fatale des data centers pour le chauffage urbain.",
             lien: "#"
         }
     ],
