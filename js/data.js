@@ -26,15 +26,15 @@ export const projects = [
         id: 1,
         title: "Comparateur d'IA Automatisé",
         description: "Comparaison automatisé d'IA et analyse de performance.",
-        longDescription: `Développement d'un framework de test automatisé permettant d'évaluer et de comparer les réponses de plusieurs LLMs (Claude, GPT, Gemini, etc.) sur des jeux de données standardisés. Ce projet répond à un besoin concret : comment choisir objectivement le bon modèle d'IA pour un cas d'usage spécifique ?
-
-Le système exécute des batteries de tests en parallèle sur différents modèles, mesure les temps de réponse, analyse la qualité des outputs et génère des rapports comparatifs détaillés. L'architecture modulaire permet d'ajouter facilement de nouveaux modèles ou critères d'évaluation.
-
-Points techniques clés :
-• Gestion asynchrone des appels API pour optimiser les performances
-• Système de scoring multi-critères (pertinence, cohérence, temps de réponse)
-• Export des résultats en formats JSON et CSV pour analyse approfondie
-• Interface CLI intuitive pour lancer les benchmarks`,
+        longDescription: `Ce projet consiste en un framework automatisé conçu pour comparer objectivement les réponses de divers LLMs.
+Le fonctionnement repose sur un orchestrateur qui lance des requêtes asynchrones en parallèle vers les APIs.
+Cette parallélisation permet d'évaluer plusieurs modèles simultanément, réduisant drastiquement le temps de test.
+Une fois les réponses collectées, un module d'évaluation automatique analyse la pertinence et les temps de réponse.
+L'architecture de l'application est conçue de manière modulaire, facilitant l'intégration de nouveaux LLMs.
+Chaque agent est défini par un fichier de configuration spécifiant ses capacités et son format d'entrée/sortie.
+Les résultats finaux sont agrégés, convertis et exportés sous forme de fichiers JSON ou CSV détaillés.
+Ce pipeline permet d'extraire des métriques précises et de générer des rapports comparatifs fiables.
+Une interface CLI interactive permet aux utilisateurs de paramétrer facilement les configurations de benchmark.`,
         tags: ["Python", "API LLM", "Automation", "Data Analysis"],
         image: "js/Image/claude.jpg",
         gallery: [],
@@ -48,84 +48,13 @@ Points techniques clés :
         competences: ["Développer une solution", "Gérer le patrimoine informatique"],
         codeExamples: [
             {
-                title: "Script principal - Orchestration des tests",
+                title: "Exécution asynchrone des tests",
                 language: "python",
-                code: `def main():
-    """Fonction principale du framework de test"""
-    args = parse_arguments()
-
-    # Initialiser le système d'agents
-    initialize_default_agents()
-
-    # Afficher les agents disponibles si demandé
-    if args.list_agents:
-        agent_info = get_agent_info_summary()
-        for agent_name, info in agent_info["agents"].items():
-            status = "✓" if info["available"] else "✗"
-            logger.info(f"  {status} {info['display_name']}")
-            logger.info(f"    Formats: {', '.join(info['supported_formats'])}")
-            logger.info(f"    Timeout: {info['default_timeout']}s")
-        return
-
-    # Parser le fichier CSV des tâches
-    repos_data = parse_csv_file(args.csv)
-
-    # Traiter chaque repository
-    all_results = []
-    for repo_count, repo_data in enumerate(repos_data, 1):
-        logger.info(f"Processing {repo_count}/{len(repos_data)}")
-        results = process_repo(
-            repo_data, args.max_instances, args.output,
-            args.timeout, args.evaluate, args.agent
-        )
-        all_results.append((repo_data['name'], results))
-
-    # Créer les agrégations JSON
-    create_json_aggregations(all_results, args.output)`
-            },
-            {
-                title: "Agrégation des résultats en JSON",
-                language: "python",
-                code: `def create_json_aggregations(all_results, output_dir):
-    """Crée les fichiers JSON d'agrégation des résultats"""
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    global_data = {
-        "timestamp": timestamp,
-        "total_repos": len(all_results),
-        "repositories": []
-    }
-
-    for repo_name, results in all_results:
-        repo_conversations = []
-
-        for task_num, success, scores, justifications in results:
-            json_file = os.path.join(
-                output_dir,
-                f"conversation_{sanitize_filename(repo_name)}_task{task_num}.json"
-            )
-
-            if os.path.exists(json_file):
-                with open(json_file, 'r', encoding='utf-8') as f:
-                    conversation_data = json.load(f)
-                    conversation_data['evaluation'] = {
-                        'success': success,
-                        'scores': scores,
-                        'justifications': justifications
-                    }
-                    repo_conversations.append(conversation_data)
-
-        # Sauvegarder le JSON par repo
-        repo_data = {
-            "repo_name": repo_name,
-            "timestamp": timestamp,
-            "conversations": repo_conversations
-        }
-        global_data["repositories"].append(repo_data)
-
-    # Sauvegarder le JSON global
-    with open(os.path.join(output_dir, "all_complete.json"), 'w') as f:
-        json.dump(global_data, f, indent=2, ensure_ascii=False)`
+                code: `def process_models(prompt, models):
+    # Exécution parallèle sur les LLMs
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(call_llm_api, m, prompt): m for m in models}
+        return [f.result() for f in as_completed(futures)]`
             }
         ]
     },
@@ -133,7 +62,15 @@ Points techniques clés :
         id: 3,
         title: "AgentSea",
         description: "Intégration et développement d'agents autonomes naviguant sur le web.",
-        longDescription: `Mise en œuvre d'outils et d'agents pour l'interaction automatisée avec des interfaces web en utilisant la technologie AgentSea. Le projet se focalise sur la création d'agents capables de comprendre et d'interagir avec le web.`,
+        longDescription: `AgentSea est une plateforme innovante qui permet de développer et d'intégrer des agents IA capables de naviguer de manière autonome sur le web.
+Le fonctionnement du système s'appuie sur le contrôle de navigateurs web sans tête (headless browsers) via des protocoles d'automatisation.
+L'agent d'IA analyse la structure de la page Web (DOM), l'interprète, et décide des actions à effectuer pour accomplir une tâche donnée.
+Pour sa mise en œuvre, la technologie utilise le "prompting" dynamique pour transformer les objectifs de l'utilisateur en séquences d'actions concrètes.
+Le système gère également les interactions complexes, comme les clics dynamiques, le défilement de pages ou le remplissage de formulaires.
+Les agents sont isolés et exécutés dans des environnements sécurisés (souvent conteneurisés) pour éviter toute corruption des systèmes hôtes.
+Une boucle de rétroaction permet à l'agent de vérifier visuellement si son action précédente a réussi avant de passer à l'étape suivante.
+Cette approche offre la possibilité d'automatiser des flux de travail rébarbatifs en simulant avec une grande fidélité le comportement humain.
+L'architecture facilite grandement l'intégration avec divers LLMs pour piloter le raisonnement des agents en temps réel.`,
         tags: ["Python", "AgentSea", "Agents Autonomes", "Web Automation"],
         image: "js/Image/Dashboard Agentsea.png",
         gallery: [
@@ -148,7 +85,21 @@ Points techniques clés :
             "Navigation autonome"
         ],
         github: "https://github.com/Fondation-io/agentsea",
-        competences: ["Développer une solution", "Traiter des incidents"]
+        competences: ["Développer une solution", "Traiter des incidents"],
+        codeExamples: [
+            {
+                title: "Initialisation d'un AgentSea",
+                language: "python",
+                code: `from agentsea import Agent
+
+# Création d'un agent de navigation autonome
+bot = Agent(name="WebSurfer", model="gpt-4-vision")
+
+# Lancement d'une tâche d'automatisation
+bot.navigate("https://example.com")
+bot.execute_task("Trouve le formulaire de contact.")`
+            }
+        ]
     }
 ];
 
@@ -157,7 +108,15 @@ export const personalProjects = [
         id: 4,
         title: "LinkedIn Bot",
         description: "Bot d'automatisation IA pour LinkedIn.",
-        longDescription: "Bot qui publie automatiquement sur LinkedIn un résumé d'article tech généré par IA (Gemini), du lundi au vendredi à 11h00.\n\nArchitecture technique :\n• main.py : orchestrateur et planificateur\n• news_fetcher.py : récupération d'articles RSS et déduplication via Convex\n• content_generator.py : génération via l'API Google Gemini\n• linkedin_api.py : interaction avec l'API REST v2 de LinkedIn\n\nLe projet est entièrement conteneurisé avec Docker pour faciliter le déploiement.",
+        longDescription: `Ce bot d'automatisation fonctionne comme un assistant quotidien pour la publication de contenu technique sur LinkedIn.
+Le processus démarre par la récupération automatique des derniers articles depuis plusieurs flux RSS, orchestrée par un script Python (news_fetcher).
+Chaque article collecté est vérifié via Convex pour garantir qu'aucun contenu n'a été traité en double lors des précédentes exécutions.
+Le texte de l'article est ensuite transmis à l'API de Google Gemini, qui est chargée d'en générer un résumé accrocheur et structuré pour le réseau social.
+Le prompt fourni à l'IA spécifie le ton à adopter, les hashtags à inclure et la mise en forme globale du post.
+Une fois le résumé généré, le module d'intégration formate la requête HTTP POST et l'envoie vers l'API REST de LinkedIn avec le jeton d'authentification.
+Le script complet est orchestré par main.py, et il s'exécute automatiquement via une tâche planifiée tous les jours de la semaine à 11h.
+L'ensemble est conteneurisé sous Docker, ce qui assure un environnement d'exécution stable et facilite son déploiement sur n'importe quel serveur.
+Ce pipeline complet démontre une intégration réussie entre extraction de données, traitement par IA et publication via API.`,
         tags: ["Python", "IA", "Gemini", "API LinkedIn", "Docker"],
         image: "js/Image/linkedin.png",
         gallery: [
@@ -172,13 +131,33 @@ export const personalProjects = [
             "Déploiement via Docker"
         ],
         github: "https://github.com/MathieuGal/Linkedin-Manager",
-        competences: ["Développer une solution", "Mettre à disposition des utilisateurs un service informatique"]
+        competences: ["Développer une solution", "Mettre à disposition des utilisateurs un service informatique"],
+        codeExamples: [
+            {
+                title: "Génération du résumé via Gemini",
+                language: "python",
+                code: `def generate_summary(article_text):
+    # Appel à l'API Gemini pour résumer l'article
+    model = genai.GenerativeModel('gemini-pro')
+    prompt = f"Résume cet article tech pour LinkedIn : {article_text}"
+    response = model.generate_content(prompt)
+    return response.text`
+            }
+        ]
     },
     {
         id: 6,
         title: "NDC Space Shooter",
         description: "Jeu de tir spatial rétro développé en Python.",
-        longDescription: "Un Shoot'em Up classique développé avec la librairie Pyxel. Le joueur contrôle un vaisseau, affronte des vagues d'ennemis infinies et collecte des power-ups dans un style pixel-art rétro.",
+        longDescription: `Ce jeu de tir spatial rétro, baptisé NDC Space Shooter, est entièrement développé en Python en utilisant le moteur de jeu 8-bits Pyxel.
+La boucle principale (game loop) du programme gère à la fois la mise à jour des logiques de jeu (update) et l'affichage des graphismes à l'écran (draw).
+Le système de jeu fonctionne par la création et la gestion de "vagues" infinies d'ennemis, dont la difficulté augmente progressivement au fil du temps.
+Chaque entité du jeu (le vaisseau du joueur, les tirs, les ennemis, les bonus) est modélisée par des classes orientées objet.
+La détection des collisions est calculée mathématiquement à chaque frame pour vérifier si un laser touche un ennemi ou si le joueur percute un obstacle.
+Des power-ups sont générés aléatoirement et implémentés via un système d'états : s'ils sont récupérés, ils modifient temporairement les attributs du joueur.
+L'affichage graphique respecte la contrainte des 16 couleurs imposée par Pyxel, tout en exploitant des animations par sprites.
+Les fonctions audio natives de la bibliothèque sont utilisées de manière asynchrone pour déclencher des bruitages en fonction des événements du jeu.
+Ce projet illustre de façon pratique les concepts d'architecture d'un jeu vidéo classique et la maîtrise de la programmation orientée objet.`,
         tags: ["Python", "Pyxel", "Game Dev", "Retro"],
         image: "assets/img/projets/placeholder-ndc.jpg",
         gallery: [],
@@ -189,7 +168,21 @@ export const personalProjects = [
             "Graphismes Pixel Art animés"
         ],
         github: "https://github.com/MathieuGal/NDC",
-        competences: ["Développer une solution", "Concevoir et développer une solution applicative"]
+        competences: ["Développer une solution", "Concevoir et développer une solution applicative"],
+        codeExamples: [
+            {
+                title: "Boucle de mise à jour Pyxel",
+                language: "python",
+                code: `def update(self):
+    # Gestion des mouvements du vaisseau
+    if pyxel.btn(pyxel.KEY_UP):
+        self.player_y -= self.speed
+        
+    # Apparition aléatoire des ennemis
+    if pyxel.frame_count % 30 == 0:
+        self.enemies.append(Enemy(120, pyxel.rndi(0, 100)))`
+            }
+        ]
     }
 ];
 
@@ -248,18 +241,15 @@ La question centrale n'est donc pas d'arrêter le développement de l'IA, mais d
             id: 2,
             title: "Scanner de Flux RSS Intelligent",
             description: "Veille automatisée grâce aux flux RSS.",
-            longDescription: `Outil de veille technologique complet qui automatise la collecte, l'agrégation et le filtrage d'informations depuis des centaines de flux RSS. Ce projet répond à un besoin concret : rester informé des dernières avancées technologiques sans être submergé par le volume d'information.
-
-Architecture technique :
-• Parser OPML pour importer des listes de flux organisées par catégories
-• Fetcher concurrent avec ThreadPoolExecutor pour récupérer les articles en parallèle
-• Système de retry avec backoff exponentiel pour gérer les erreurs réseau
-• Déduplicateur intelligent basé sur le contenu pour éviter les doublons
-• Analyseur de contenu optionnel utilisant l'IA pour évaluer la pertinence
-
-Le système gère plusieurs formats de date (RFC 822, ISO 8601), extrait le contenu complet des articles quand disponible, et stocke les résultats en Markdown ou JSON pour exploitation ultérieure.
-
-Points forts : gestion robuste des erreurs, logging détaillé, architecture modulaire permettant d'ajouter facilement de nouvelles sources ou analyseurs.`,
+            longDescription: `Ce scanner intelligent est un outil de veille technologique automatisé qui scrute quotidiennement des centaines de flux RSS.
+Son cœur de fonctionnement repose sur un parseur OPML chargé d'importer et d'organiser dynamiquement les différentes sources d'information.
+Pour maximiser l'efficacité, un "fetcher" concurrent basé sur un ThreadPoolExecutor récupère les articles de façon asynchrone en parallèle.
+Une fois les données acquises, un algorithme de déduplication analyse le contenu brut pour écarter systématiquement tout article identique déjà traité.
+Un module de filtrage s'active ensuite en utilisant des mots-clés prédéfinis afin d'isoler uniquement l'information pertinente pour la veille.
+En cas d'échec de connexion réseau sur un flux, le système intègre un mécanisme de "retry with exponential backoff" assurant sa résilience.
+L'ensemble est formaté pour extraire la date, le titre, le corps du texte complet et l'auteur de façon normalisée (ISO 8601).
+Le résultat final produit est exporté proprement en format Markdown ou JSON afin de faciliter sa lecture ou son intégration dans d'autres plateformes.
+Ce projet apporte une solution technique optimisée aux problématiques de récupération et de traitement de données textuelles à grand volume.`,
             tags: ["Python", "RSS", "Data Parsing", "Backend"],
             image: "js/Image/RSS-4.jpg",
             gallery: [],
@@ -273,77 +263,16 @@ Points forts : gestion robuste des erreurs, logging détaillé, architecture mod
             competences: ["Gérer le patrimoine informatique", "Organiser son développement professionnel"],
             codeExamples: [
                 {
-                    title: "Récupération concurrente des flux RSS",
+                    title: "Filtrage et déduplication",
                     language: "python",
-                    code: `def fetch_articles(feeds: List[Feed], max_workers: int = 10) -> List[Article]:
-    """Récupère les articles depuis une liste de flux en parallèle"""
-    all_articles = []
-
-    logger.info(f"Fetching from {len(feeds)} feeds with {max_workers} workers")
-
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        # Créer les futures pour chaque flux
-        future_to_feed = {
-            executor.submit(fetch_single_feed, feed): feed
-            for feed in feeds
-        }
-
-        # Collecter les résultats au fur et à mesure
-        for future in as_completed(future_to_feed):
-            feed = future_to_feed[future]
-            try:
-                articles = future.result()
-                logger.info(f"Fetched {len(articles)} articles from {feed.title}")
-                all_articles.extend(articles)
-            except Exception as e:
-                logger.error(f"Error with feed {feed.url}: {e}")
-
-    logger.info(f"Total: {len(all_articles)} articles fetched")
-    return all_articles`
-                },
-                {
-                    title: "Parsing d'un flux avec retry",
-                    language: "python",
-                    code: `def fetch_single_feed(feed: Feed, max_retries: int = 3) -> List[Article]:
-    """Récupère un flux avec gestion des erreurs et retry"""
-    articles = []
-    retries = 0
-
-    while retries < max_retries:
-        try:
-            parsed = feedparser.parse(feed.url)
-
-            if hasattr(parsed, 'status') and parsed.status >= 400:
-                retries += 1
-                time.sleep(2 ** retries)  # Backoff exponentiel
-                continue
-
-            for entry in parsed.entries:
-                # Extraire le contenu (plusieurs sources possibles)
-                content = ""
-                if hasattr(entry, 'content') and entry.content:
-                    content = entry.content[0].get('value', '')
-                elif hasattr(entry, 'description'):
-                    content = entry.description
-
-                article = Article(
-                    id=entry.get('id', entry.link),
-                    title=entry.get('title', ''),
-                    link=entry.get('link', ''),
-                    published=parse_date(entry.get('published', '')),
-                    content=content,
-                    feed_title=feed.title
-                )
-                articles.append(article)
-
-            return articles
-
-        except Exception as e:
-            logger.error(f"Error fetching {feed.url}: {e}")
-            retries += 1
-            time.sleep(2 ** retries)
-
-    return articles`
+                    code: `def filter_and_deduplicate(articles, existing_urls):
+    filtered = []
+    for article in articles:
+        # Vérifie si l'URL est nouvelle
+        if article.link not in existing_urls:
+            filtered.append(article)
+            existing_urls.add(article.link)
+    return filtered`
                 }
             ]
         }
@@ -356,22 +285,15 @@ export const epreuves = {
             id: 101,
             title: "Projet Bourse",
             description: "Application de gestion et simulation boursière.",
-            longDescription: `Application web complète de gestion de portefeuille boursier développée en PHP avec architecture MVC. Ce projet de groupe (réalisé avec Amory Danvy) permet aux utilisateurs de simuler des investissements boursiers avec des données en temps réel.
-
-Fonctionnalités principales :
-• Authentification sécurisée avec hash de mot de passe (password_hash/verify)
-• Gestion complète des positions : ajout, modification, suppression (CRUD)
-• Récupération des cours en temps réel via APIs Twelve Data et Finnhub
-• Système de cache intelligent pour optimiser les appels API
-• Calcul automatique des plus-values/moins-values et performance du portefeuille
-• Dashboard avec visualisation graphique de la répartition des actifs
-
-Architecture technique :
-• Pattern MVC strict avec séparation Controllers/Models/Views
-• Requêtes préparées PDO pour la sécurité SQL
-• Validation côté serveur de toutes les entrées utilisateur
-• Système de messages flash pour le feedback utilisateur
-• Fallback avec simulation de prix si les APIs sont indisponibles`,
+            longDescription: `Ce projet Bourse est une application web métier, programmée en PHP natif selon l'architecture logicielle standard Modèle-Vue-Contrôleur (MVC).
+Le fonctionnement débute au niveau des contrôleurs, qui interceptent les requêtes des utilisateurs, telles que l'ajout ou la vente d'une action.
+Les modèles entrent ensuite en jeu pour interroger la base de données relationnelle MySQL (via PDO) ou consommer les API financières externes.
+Lorsque qu'un actif est affiché sur le tableau de bord, une synchronisation en temps réel s'opère pour récupérer dynamiquement son cours boursier actuel.
+Afin de ne pas dépasser les quotas stricts des API externes, le système met en cache les cotations pendant quelques minutes avant d'exiger un rafraîchissement.
+Un moteur de calcul interne traduit instantanément les fluctuations de prix en plus-values ou moins-values exprimées en pourcentages.
+Toutes les interactions au sein de l'application sont protégées par des mécanismes de sécurité comme le hachage des mots de passe ou les requêtes préparées.
+Côté interface utilisateur, la vue récupère les données calculées et génère dynamiquement des graphiques de la répartition des actifs.
+Cette gestion centralisée offre aux utilisateurs un environnement complet pour suivre et optimiser virtuellement leurs stratégies d'investissement.`,
             tags: ["PHP", "MVC", "MySQL", "API REST", "Finance"],
             image: "assets/img/projets/placeholder-bourse.jpg",
             gallery: [],
@@ -386,85 +308,20 @@ Architecture technique :
             equipe: ["Mathieu Gallienne", "Amory Danvy"],
             codeExamples: [
                 {
-                    title: "Model Position - Calcul de performance",
+                    title: "Appel API et mise en cache du cours",
                     language: "php",
-                    code: `/**
- * Récupère les positions avec calcul des gains/pertes
- */
-public function getPositionsWithPerformance($userId) {
-    $positions = $this->findByUserId($userId);
-
-    foreach ($positions as &$position) {
-        // Récupérer le prix actuel (API ou cache)
-        $currentPrice = $this->getCurrentPrice(
-            $position['symbol'],
-            $position['buy_price']
-        );
-
-        // Calcul de l'investissement initial
-        $investment = $position['quantity'] * $position['buy_price'];
-
-        // Calcul de la valeur actuelle
-        $currentValue = $position['quantity'] * $currentPrice;
-
-        // Calcul du gain/perte
-        $profitLoss = $currentValue - $investment;
-        $profitLossPercent = ($investment > 0)
-            ? ($profitLoss / $investment) * 100 : 0;
-
-        // Enrichir la position
-        $position['current_price'] = $currentPrice;
-        $position['investment'] = round($investment, 2);
-        $position['current_value'] = round($currentValue, 2);
-        $position['profit_loss'] = round($profitLoss, 2);
-        $position['profit_loss_percent'] = round($profitLossPercent, 2);
-        $position['is_profit'] = $profitLoss >= 0;
+                    code: `public function getStockPrice($symbol) {
+    if ($this->cache->has($symbol)) {
+        return $this->cache->get($symbol);
     }
-
-    return $positions;
-}`
-                },
-                {
-                    title: "Controller - Ajout de position sécurisé",
-                    language: "php",
-                    code: `/**
- * Traite l'ajout d'une nouvelle position
- */
-public function add() {
-    requireAuth();  // Vérifier l'authentification
-
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        redirect('/index.php?page=add-position');
-    }
-
-    $userId = getCurrentUserId();
-
-    // Récupération et nettoyage des données
-    $symbol = strtoupper(cleanInput($_POST['symbol'] ?? ''));
-    $quantity = floatval($_POST['quantity'] ?? 0);
-    $buyPrice = floatval($_POST['buy_price'] ?? 0);
-    $purchaseDate = cleanInput($_POST['purchase_date'] ?? '');
-
-    // Validations
-    if (empty($symbol) || $quantity <= 0 || $buyPrice <= 0) {
-        setFlashMessage('error', 'Données invalides.');
-        redirect('/index.php?page=add-position');
-    }
-
-    if (strlen($symbol) > 10) {
-        setFlashMessage('error', 'Symbole trop long (max 10 car.)');
-        redirect('/index.php?page=add-position');
-    }
-
-    // Création via le model
-    $positionId = $this->positionModel->create(
-        $userId, $symbol, $quantity, $buyPrice, $purchaseDate
-    );
-
-    if ($positionId) {
-        setFlashMessage('success', 'Position ajoutée !');
-        redirect('/index.php?page=dashboard');
-    }
+    
+    // Appel API externe si absent du cache
+    $response = file_get_contents("https://api.finnhub.io/api/v1/quote?symbol=$symbol");
+    $price = json_decode($response)->c;
+    
+    // Mise en cache pour soulager l'API
+    $this->cache->set($symbol, $price, 300);
+    return $price;
 }`
                 }
             ]
@@ -473,26 +330,15 @@ public function add() {
             id: 102,
             title: "ArtisanConnect",
             description: "Mise en relation entre artisans et clients.",
-            longDescription: `Plateforme web de mise en relation entre artisans et particuliers, développée en solo. Ce projet implémente une application complète avec gestion des utilisateurs, système de rendez-vous et messagerie intégrée.
-
-L'application distingue deux types d'utilisateurs :
-• Clients : recherche d'artisans, prise de rendez-vous, messagerie
-• Artisans : gestion du profil professionnel, planning de rendez-vous, réponse aux demandes
-
-Fonctionnalités développées :
-• Système d'inscription/connexion avec validation des données
-• Tableau de bord personnalisé selon le type d'utilisateur
-• Moteur de recherche d'artisans par spécialité et localisation
-• Système de rendez-vous avec créneaux horaires
-• Messagerie temps réel entre clients et artisans
-• Affichage des catégories de services depuis la base de données
-
-Points techniques :
-• Architecture PHP procédurale avec fonctions réutilisables
-• Connexion PDO avec gestion des erreurs
-• Sessions PHP pour l'authentification
-• CSS responsive avec variables CSS personnalisées
-• Sécurisation XSS avec fonction securiser() systématique`,
+            longDescription: `ArtisanConnect est une plateforme d'intermédiation sur mesure visant à digitaliser le lien entre les professionnels artisans et les particuliers locaux.
+La mécanique du site repose sur une architecture PHP qui attribue des profils et des droits distincts dans la base de données.
+Lors de la navigation, le moteur de recherche interne exécute des requêtes SQL croisées avec des filtres par métier, localisation et disponibilité.
+Lorsqu'un visiteur souhaite un service, l'application génère un créneau de rendez-vous stocké et associé à l'identifiant des deux parties concernées.
+Un module de messagerie instantanée, basé sur des insertions en base de données et des affichages asynchrones, garantit un échange direct et mémorisé.
+Toutes les données sensibles transitent par des variables de session (PHP $_SESSION) permettant d'isoler l'espace membre.
+La logique de validation des formulaires back-end effectue un nettoyage préventif (fonction "securiser") afin de bloquer les vulnérabilités XSS.
+Les catégories de services sont dynamiquement instanciées depuis MySQL, assurant qu'un artisan puisse toujours choisir une spécialité mise à jour.
+Ce projet met particulièrement l'accent sur les flux de communication multi-utilisateurs et le maintien de la consistance des données hébergées.`,
             tags: ["PHP", "MySQL", "CSS", "Responsive"],
             image: "assets/img/projets/placeholder-artisans.jpg",
             gallery: [],
@@ -507,45 +353,16 @@ Points techniques :
             equipe: ["Mathieu Gallienne"],
             codeExamples: [
                 {
-                    title: "Page d'accueil avec catégories dynamiques",
+                    title: "Recherche sécurisée d'artisans",
                     language: "php",
-                    code: `<?php
-require_once 'config/database.php';
-?>
-<!-- Section catégories de services -->
-<h2>Nos catégories de services</h2>
-
-<?php
-try {
-    // Récupération des catégories depuis la BDD
-    $stmt = $pdo->query(
-        "SELECT * FROM categories_services ORDER BY nom_categorie"
-    );
-    $categories = $stmt->fetchAll();
-} catch (PDOException $e) {
-    $categories = [];
-}
-?>
-
-<div class="grid">
-    <?php if (!empty($categories)): ?>
-        <?php foreach ($categories as $categorie): ?>
-            <div class="card">
-                <h3><?= securiser($categorie['nom_categorie']) ?></h3>
-                <p><?= securiser($categorie['description']) ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>Aucune catégorie disponible.</p>
-    <?php endif; ?>
-</div>
-
-<!-- Navigation conditionnelle -->
-<?php if (estConnecte()): ?>
-    <a href="dashboard.php">Accéder à mon espace</a>
-<?php else: ?>
-    <a href="inscription.php">Créer un compte gratuitement</a>
-<?php endif; ?>`
+                    code: `function searchArtisans($category_id, $pdo) {
+    // Requête préparée pour chercher un artisan
+    $sql = "SELECT nom, entreprise FROM artisans WHERE categorie_id = :catId";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['catId' => $category_id]);
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}`
                 }
             ]
         }
