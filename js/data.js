@@ -159,8 +159,12 @@ L'affichage graphique respecte la contrainte des 16 couleurs imposée par Pyxel,
 Les fonctions audio natives de la bibliothèque sont utilisées de manière asynchrone pour déclencher des bruitages en fonction des événements du jeu.
 Ce projet illustre de façon pratique les concepts d'architecture d'un jeu vidéo classique et la maîtrise de la programmation orientée objet.`,
         tags: ["Python", "Pyxel", "Game Dev", "Retro"],
-        image: "assets/img/projets/placeholder-ndc.jpg",
-        gallery: [],
+        image: "js/Image/NDC base.png",
+        gallery: [
+            "js/Image/Ennemis.png",
+            "js/Image/Game over.png",
+            "js/Image/NDC base.png"
+        ],
         features: [
             "Moteur de jeu fluide avec Pyxel",
             "Système de vagues infinies",
