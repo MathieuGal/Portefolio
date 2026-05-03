@@ -2,23 +2,25 @@
 // C'est ici que vous modifiez le contenu de votre site !
 
 export const personalInfo = {
-    name: "Mathieu Gallienne", // Remplacez par votre nom complet
-    title: "Étudiant BTS SIO - Option SLAM",
-    heroTitle: "Développeur d'applications en devenir",
-    heroDescription: "Passionné par le développement. BTS SIO option Solutions Logicielles et Applications Métiers.",
+    name: "Mathieu Gallienne",
+    title: "Étudiant BTS SIO - Option SLAM (en alternance)",
+    heroTitle: "Mathieu Gallienne — Développeur d'applications en devenir",
+    heroDescription: "Étudiant en BTS SIO option SLAM (Solutions Logicielles et Applications Métiers) au Lycée Louis Bascan de Rambouillet, en alternance chez Siccardi Tech-Leads. Passionné par le développement, je recherche une alternance pour poursuivre ma montée en compétences.",
     email: "mathieugallienne@orange.fr",
+    phone: "06 75 34 38 77",
+    location: "Saint Arnoult en Yvelines (78730)",
     github: "https://github.com/MathieuGal",
     linkedin: "https://www.linkedin.com/in/mathieu-gallienne-54a992318/",
     cvLink: "assets/documents/cv.pdf"
 };
 
 export const skills = [
-    { name: "HTML5 / CSS3", level: 90, icon: "fa-html5" },
-    { name: "JavaScript", level: 75, icon: "fa-js" },
-    { name: "PHP / Symfony", level: 70, icon: "fa-php" },
-    { name: "SQL / MySQL", level: 80, icon: "fa-database" },
+    { name: "Python", level: 85, icon: "fa-python" },
+    { name: "HTML5 / CSS3", level: 80, icon: "fa-html5" },
+    { name: "C#", level: 65, icon: "fa-code" },
     { name: "Git / GitHub", level: 85, icon: "fa-git-alt" },
-    { name: "Java", level: 60, icon: "fa-java" }
+    { name: "API REST / JSON / HTTP", level: 75, icon: "fa-network-wired" },
+    { name: "Tests unitaires & linting", level: 70, icon: "fa-vial" }
 ];
 
 export const projects = [
@@ -374,8 +376,52 @@ Ce projet met particulièrement l'accent sur les flux de communication multi-uti
 };
 
 export const formation = {
-    ecole: "Lycée Louis Bascan",
+    ecole: "Lycée Louis Bascan — Rambouillet",
     option: "SLAM (Solutions Logicielles et Applications Métiers)",
-    annees: "2024 - 2026",
-    description: "Le BTS SIO forme aux métiers de l'informatique. L'option SLAM est centrée sur la conception et la maintenance de programmes applicatifs."
+    annees: "Depuis 2024 (en alternance)",
+    description: "Le BTS SIO forme aux métiers de l'informatique. L'option SLAM est centrée sur la conception, le développement et la maintenance d'applications logicielles. Modules suivis : développement (Python, C#), gestion de bases de données, projets professionnels en équipe.",
+    diplomes: [
+        {
+            titre: "BTS Services Informatiques aux Organisations — Option SLAM",
+            etablissement: "Lycée Louis Bascan, Rambouillet",
+            periode: "Depuis 2024",
+            modalite: "En alternance",
+            details: [
+                "Découverte et programmation en C#",
+                "Formation à l'utilisation de Python",
+                "Développement de projets professionnels",
+                "Gestion de bases de données"
+            ]
+        },
+        {
+            titre: "Baccalauréat Général",
+            etablissement: "Lycée Louis Bascan, Rambouillet",
+            periode: "2021 - 2024",
+            modalite: "Spécialités Mathématiques et NSI (Numérique et Sciences Informatiques)",
+            details: []
+        }
+    ],
+    experiences: [
+        {
+            poste: "Alternance — Développement informatique",
+            entreprise: "Siccardi Tech-Leads, Rambouillet",
+            periode: "Depuis 2024",
+            missions: [
+                "Développement de projets en équipe",
+                "Maintenance de logiciels",
+                "Tests automatisés",
+                "Recherche & Développement",
+                "Développements assistés par l'IA"
+            ]
+        },
+        {
+            poste: "Stage de 3ème",
+            entreprise: "Razel Bec — Groupe Fayat, Saclay",
+            periode: "2021",
+            missions: [
+                "Réinitialisation de PC professionnels au sein du service informatique",
+                "Découverte des différents services de l'entreprise (graphique, géologie, mécanique, RH)"
+            ]
+        }
+    ]
 };

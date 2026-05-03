@@ -213,6 +213,32 @@ function loadFormation() {
         <p><strong>Années :</strong> ${formation.annees}</p>
         <p style="margin-top: 1rem;">${formation.description}</p>
     `;
+
+    // Diplômes détaillés
+    const diplomesContainer = document.getElementById('diplomes-container');
+    if (diplomesContainer && formation.diplomes) {
+        diplomesContainer.innerHTML = formation.diplomes.map(d => `
+            <div class="card">
+                <h4 style="color: var(--primary-color);">${d.titre}</h4>
+                <p><strong>${d.etablissement}</strong></p>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">${d.periode}${d.modalite ? ' — ' + d.modalite : ''}</p>
+                ${d.details && d.details.length ? `<ul style="margin-top: 0.75rem; padding-left: 1.25rem;">${d.details.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+            </div>
+        `).join('');
+    }
+
+    // Expériences professionnelles
+    const expContainer = document.getElementById('experiences-container');
+    if (expContainer && formation.experiences) {
+        expContainer.innerHTML = formation.experiences.map(e => `
+            <div class="card">
+                <h4 style="color: var(--primary-color);">${e.poste}</h4>
+                <p><strong>${e.entreprise}</strong></p>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">${e.periode}</p>
+                ${e.missions && e.missions.length ? `<ul style="margin-top: 0.75rem; padding-left: 1.25rem;">${e.missions.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+            </div>
+        `).join('');
+    }
 }
 
 // Modal Functions for Gallery
