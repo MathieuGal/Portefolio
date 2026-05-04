@@ -96,6 +96,89 @@ nav {
     width: 100%;
 }
 
+/* Dropdown menu (Projets) */
+.nav-links .dropdown {
+    position: relative;
+}
+
+.nav-links .dropdown-toggle {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.nav-links .dropdown-toggle .chevron {
+    font-size: 0.7rem;
+    transition: transform 0.25s ease;
+}
+
+.nav-links .dropdown:hover .dropdown-toggle .chevron,
+.nav-links .dropdown:focus-within .dropdown-toggle .chevron {
+    transform: rotate(180deg);
+}
+
+.nav-links .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    min-width: 200px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    list-style: none;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 1100;
+}
+
+.nav-links .dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+}
+
+.nav-links .dropdown:hover .dropdown-menu,
+.nav-links .dropdown:focus-within .dropdown-menu,
+.nav-links .dropdown.open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-links .dropdown-menu li {
+    list-style: none;
+}
+
+.nav-links .dropdown-menu a {
+    display: block;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.5rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links .dropdown-menu a:hover,
+.nav-links .dropdown-menu a.active {
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--text-color);
+}
+
+.nav-links .dropdown-menu a::after {
+    display: none;
+}
+
 /* Hero Section */
 .hero {
     min-height: 100vh;

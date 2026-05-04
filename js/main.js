@@ -79,10 +79,10 @@ function loadEpreuves() {
 function createProjectCard(project) {
     const isPrivate = project.private === true;
     const privateBadge = isPrivate
-        ? `<span style="display:inline-block; background:#fff3cd; color:#856404; padding:0.25rem 0.6rem; border-radius:999px; font-size:0.8rem; border:1px solid #ffeeba; margin-bottom:0.75rem;"><i class="fas fa-lock" style="margin-right:5px;"></i>Repo privé entreprise</span>`
+        ? `<span style="display:inline-block; background:#fff3cd; color:#856404; padding:0.25rem 0.6rem; border-radius:999px; font-size:0.8rem; border:1px solid #ffeeba; margin-bottom:0.75rem;"><i class="fas fa-lock" style="margin-right:5px;"></i>Dépo privé entreprise</span>`
         : '';
     const githubButton = (project.github && project.github !== '')
-        ? `<a href="${project.github}" class="btn btn-primary" style="width: 100%; display: block; text-align: center; margin-bottom: 0.5rem;" target="_blank" rel="noopener"><i class="fa${isPrivate ? 's fa-lock' : 'b fa-github'}" style="margin-right: 8px;"></i>${isPrivate ? 'Repo privé — Voir sur GitHub' : 'Voir sur GitHub'}</a>`
+        ? `<a href="${project.github}" class="btn btn-primary" style="width: 100%; display: block; text-align: center; margin-bottom: 0.5rem;" target="_blank" rel="noopener"><i class="fa${isPrivate ? 's fa-lock' : 'b fa-github'}" style="margin-right: 8px;"></i>${isPrivate ? 'Dépo privé — Voir sur GitHub' : 'Voir sur GitHub'}</a>`
         : '';
     return `
         <div class="card">
@@ -154,7 +154,7 @@ function loadProjectDetails() {
             githubLink.style.cursor = '';
             githubLink.style.opacity = '';
             if (isPrivate) {
-                githubLink.innerHTML = '<i class="fas fa-lock" style="margin-right:8px;"></i> Repo privé — Voir sur GitHub';
+                githubLink.innerHTML = '<i class="fas fa-lock" style="margin-right:8px;"></i> Dépo privé — Voir sur GitHub';
             } else {
                 githubLink.innerHTML = '<i class="fab fa-github" style="margin-right:8px;"></i> Voir sur GitHub';
             }
@@ -162,7 +162,7 @@ function loadProjectDetails() {
             githubLink.removeAttribute('href');
             githubLink.style.cursor = 'not-allowed';
             githubLink.style.opacity = '0.65';
-            githubLink.innerHTML = '<i class="fas fa-lock" style="margin-right:8px;"></i> Repo privé (entreprise)';
+            githubLink.innerHTML = '<i class="fas fa-lock" style="margin-right:8px;"></i> Dépo privé (entreprise)';
         }
     }
 

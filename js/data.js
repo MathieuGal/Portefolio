@@ -438,5 +438,5 @@ export const formation = {
 };
 
 // Réalisations en milieu professionnel (alternance Fondation.io / Siccardi Tech-Leads)
-// Repos privés entreprise — pas de lien GitHub public
+// Dépos privés entreprise — pas de lien GitHub public
 export const projetsPro = [];
