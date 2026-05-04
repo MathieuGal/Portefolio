@@ -46,7 +46,7 @@ Une interface CLI interactive permet aux utilisateurs de paramétrer facilement 
             "Génération automatique de rapports de benchmark",
             "Interface de visualisation des résultats"
         ],
-        github: "https://github.com/Fondation-io/Testing_Claude_code",
+        github: "",
         competences: ["Développer une solution", "Gérer le patrimoine informatique"],
         codeExamples: [
             {
@@ -86,7 +86,7 @@ L'architecture facilite grandement l'intégration avec divers LLMs pour piloter 
             "Automatisation d'interactions complexes",
             "Navigation autonome"
         ],
-        github: "https://github.com/Fondation-io/agentsea",
+        github: "",
         competences: ["Développer une solution", "Traiter des incidents"],
         codeExamples: [
             {
@@ -265,7 +265,7 @@ Ce projet apporte une solution technique optimisée aux problématiques de récu
                 "Déduplication automatique des articles",
                 "Export et notification des veilles qualifiées"
             ],
-            github: "https://github.com/Fondation-io/RSSScanner",
+            github: "",
             competences: ["Gérer le patrimoine informatique", "Organiser son développement professionnel"],
             codeExamples: [
                 {
