@@ -49,6 +49,33 @@ Une interface CLI interactive permet aux utilisateurs de paramétrer facilement 
         github: "https://github.com/Fondation-io",
         private: true,
         competences: ["Développer une solution", "Gérer le patrimoine informatique"],
+        codeScreens: [
+            {
+                image: "js/Image/Comparateur-5-orchestrateur.png",
+                title: "1. Boucle principale (main.py)",
+                description: "Le chef d'orchestre du programme. Après avoir vérifié le fichier CSV et créé le dossier de sortie, il parse les repos à traiter, les limite si l'utilisateur l'a demandé, puis itère dessus. Pour chaque repo, il appelle process_repo() qui lance les tâches en parallèle, et collecte les scores de pédagogie, clarté et pertinence pour le rapport final."
+            },
+            {
+                image: "js/Image/Comparateur-1-dataclasses.png",
+                title: "2. Modèles de données (base_agent.py)",
+                description: "Deux dataclasses Python qui standardisent les échanges entre le programme et chaque agent IA. TaskParams porte tout ce qu'il faut pour exécuter une tâche (le prompt, le repo cloné, le timeout). AgentResult porte la réponse (succès ou échec, fichier de sortie, métadonnées). Cette standardisation est ce qui permet de brancher Claude, Gemini, Grok ou n'importe quel autre agent sans toucher au reste du code."
+            },
+            {
+                image: "js/Image/Comparateur-2-agents-registry.png",
+                title: "3. Enregistrement des agents (agent_factory.py)",
+                description: "La fonction initialize_default_agents enregistre tous les agents disponibles (Claude, Fondation, Gemini, OpenCode, Grok, Codex…) dans un registre central. Chaque agent fournit sa propre configuration via create_default_config(). À la fin, validate_all_agents() vérifie que les CLI/clés API sont bien présentes sur la machine et affiche un ✓ ou ✗ pour chaque agent. C'est le pattern Factory + Registry qui rend le projet extensible."
+            },
+            {
+                image: "js/Image/Comparateur-3-claude-execution.png",
+                title: "4. Exécution d'une tâche (claude_agent.py)",
+                description: "Le cœur de l'agent Claude. On construit la commande CLI avec les bons arguments, on lance subprocess.Popen dans le dossier du repo cloné (cwd=abs_clone_dir pour l'isolation), puis on capture la sortie avec un timeout. Le stream JSON renvoyé par Claude est parsé ligne par ligne : chaque ligne valide est ajoutée à la conversation, les lignes non-JSON sont stockées comme texte brut. Le résultat structuré est ensuite sérialisé en JSON sur disque."
+            },
+            {
+                image: "js/Image/Comparateur-4-threadpool.png",
+                title: "5. Parallélisme par repo (task_processor.py)",
+                description: "process_repo lance toutes les tâches d'un même repo en parallèle grâce à un ThreadPoolExecutor (max_workers contrôlé en CLI). Chaque future correspond à une tâche IA. La récupération des résultats gère trois cas : succès (on stocke les scores), TimeoutExpired (on marque TIMEOUT pour les 3 critères) et exception (on marque ERROR). Cette gestion robuste évite qu'un échec sur une tâche ne bloque tout le batch."
+            }
+        ],
         codeExamples: [
             {
                 title: "Exécution asynchrone des tests",

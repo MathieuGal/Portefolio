@@ -175,6 +175,28 @@ function loadProjectDetails() {
         `).join('');
     }
 
+    const codeScreensContainer = document.getElementById('code-screens-container');
+    if (codeScreensContainer && project.codeScreens && project.codeScreens.length > 0) {
+        codeScreensContainer.innerHTML = `
+            <h2 style="margin-top: 2rem; color: var(--primary-color);">Captures de code commentées</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Cinq extraits de code clés du projet, accompagnés d'une explication.</p>
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                ${project.codeScreens.map(screen => `
+                    <div class="code-screen" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1.25rem;">
+                        <h3 style="margin: 0 0 0.75rem 0; color: var(--primary-color);">${screen.title}</h3>
+                        <div style="border: 1px solid var(--border-color); border-radius: 0.4rem; overflow: hidden; margin-bottom: 1rem; background: #1e1e1e;">
+                            <a href="${screen.image}" target="_blank" rel="noopener" title="Ouvrir en grand">
+                                <img src="${screen.image}" alt="${screen.title}" style="width: 100%; height: auto; display: block;" onerror="this.parentElement.parentElement.style.display='none'">
+                            </a>
+                        </div>
+                        <p style="margin: 0; color: var(--text-color); line-height: 1.6;">${screen.description}</p>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        codeScreensContainer.style.display = 'block';
+    }
+
     const codeExamplesContainer = document.getElementById('code-examples-container');
     if (codeExamplesContainer && project.codeExamples && project.codeExamples.length > 0) {
         codeExamplesContainer.innerHTML = `
