@@ -124,7 +124,7 @@ Ce pipeline complet démontre une intégration réussie entre extraction de donn
         gallery: [
             "js/Image/Linkedin post json.png",
             "js/Image/Post linkedin.png",
-            "js/Image/Docker.png",
+            "js/Image/Docker.png"
         ],
         features: [
             "Récupération d'articles tech via RSS",
@@ -183,7 +183,7 @@ Ce projet illustre de façon pratique les concepts d'architecture d'un jeu vidé
     # Gestion des mouvements du vaisseau
     if pyxel.btn(pyxel.KEY_UP):
         self.player_y -= self.speed
-        
+
     # Apparition aléatoire des ennemis
     if pyxel.frame_count % 30 == 0:
         self.enemies.append(Enemy(120, pyxel.rndi(0, 100)))`
@@ -320,11 +320,11 @@ Cette gestion centralisée offre aux utilisateurs un environnement complet pour 
     if ($this->cache->has($symbol)) {
         return $this->cache->get($symbol);
     }
-    
+
     // Appel API externe si absent du cache
     $response = file_get_contents("https://api.finnhub.io/api/v1/quote?symbol=$symbol");
     $price = json_decode($response)->c;
-    
+
     // Mise en cache pour soulager l'API
     $this->cache->set($symbol, $price, 300);
     return $price;
@@ -370,6 +370,57 @@ Ce projet met particulièrement l'accent sur les flux de communication multi-uti
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }`
                 }
+            ]
+        }
+    ]
+};
+
+export const formation = {
+    ecole: "Lycée Louis Bascan — Rambouillet",
+    option: "SLAM (Solutions Logicielles et Applications Métiers)",
+    annees: "Depuis 2024 (en alternance)",
+    description: "Le BTS SIO forme aux métiers de l'informatique. L'option SLAM est centrée sur la conception, le développement et la maintenance d'applications logicielles. Modules suivis : développement (Python, C#), gestion de bases de données, projets professionnels en équipe.",
+    diplomes: [
+        {
+            titre: "BTS Services Informatiques aux Organisations — Option SLAM",
+            etablissement: "Lycée Louis Bascan, Rambouillet",
+            periode: "Depuis 2024",
+            modalite: "En alternance",
+            details: [
+                "Découverte et programmation en C#",
+                "Formation à l'utilisation de Python",
+                "Développement de projets professionnels",
+                "Gestion de bases de données"
+            ]
+        },
+        {
+            titre: "Baccalauréat Général",
+            etablissement: "Lycée Louis Bascan, Rambouillet",
+            periode: "2021 - 2024",
+            modalite: "Spécialités Mathématiques et NSI (Numérique et Sciences Informatiques)",
+            details: []
+        }
+    ],
+    experiences: [
+        {
+            poste: "Alternance — Développement informatique",
+            entreprise: "Siccardi Tech-Leads, Rambouillet",
+            periode: "Depuis 2024",
+            missions: [
+                "Développement de projets en équipe",
+                "Maintenance de logiciels",
+                "Tests automatisés",
+                "Recherche & Développement",
+                "Développements assistés par l'IA"
+            ]
+        },
+        {
+            poste: "Stage de 3ème",
+            entreprise: "Razel Bec — Groupe Fayat, Saclay",
+            periode: "2021",
+            missions: [
+                "Réinitialisation de PC professionnels au sein du service informatique",
+                "Découverte des différents services de l'entreprise (graphique, géologie, mécanique, RH)"
             ]
         }
     ]
@@ -457,54 +508,3 @@ Travail réalisé en mode projet sur sprints, avec gestion des dépendances upst
         codeExamples: []
     }
 ];
-
-export const formation = {
-    ecole: "Lycée Louis Bascan — Rambouillet",
-    option: "SLAM (Solutions Logicielles et Applications Métiers)",
-    annees: "Depuis 2024 (en alternance)",
-    description: "Le BTS SIO forme aux métiers de l'informatique. L'option SLAM est centrée sur la conception, le développement et la maintenance d'applications logicielles. Modules suivis : développement (Python, C#), gestion de bases de données, projets professionnels en équipe.",
-    diplomes: [
-        {
-            titre: "BTS Services Informatiques aux Organisations — Option SLAM",
-            etablissement: "Lycée Louis Bascan, Rambouillet",
-            periode: "Depuis 2024",
-            modalite: "En alternance",
-            details: [
-                "Découverte et programmation en C#",
-                "Formation à l'utilisation de Python",
-                "Développement de projets professionnels",
-                "Gestion de bases de données"
-            ]
-        },
-        {
-            titre: "Baccalauréat Général",
-            etablissement: "Lycée Louis Bascan, Rambouillet",
-            periode: "2021 - 2024",
-            modalite: "Spécialités Mathématiques et NSI (Numérique et Sciences Informatiques)",
-            details: []
-        }
-    ],
-    experiences: [
-        {
-            poste: "Alternance — Développement informatique",
-            entreprise: "Siccardi Tech-Leads, Rambouillet",
-            periode: "Depuis 2024",
-            missions: [
-                "Développement de projets en équipe",
-                "Maintenance de logiciels",
-                "Tests automatisés",
-                "Recherche & Développement",
-                "Développements assistés par l'IA"
-            ]
-        },
-        {
-            poste: "Stage de 3ème",
-            entreprise: "Razel Bec — Groupe Fayat, Saclay",
-            periode: "2021",
-            missions: [
-                "Réinitialisation de PC professionnels au sein du service informatique",
-                "Découverte des différents services de l'entreprise (graphique, géologie, mécanique, RH)"
-            ]
-        }
-    ]
-};

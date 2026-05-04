@@ -2,31 +2,28 @@ import { personalInfo, skills, projects, personalProjects, projetsPro, veille, e
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPersonalInfo();
-    loadSkills(); // Si sur la page d'accueil
-    loadProjects(); // Si sur la page projets
-    loadPersonalProjects(); // Si sur la page projets perso
-    loadVeille(); // Si sur la page veille
-    loadEpreuves(); // Si sur la page épreuves
-    loadFormation(); // Si sur la page formation
-    loadProjectDetails(); // Si sur la page détails
+    loadSkills();
+    loadProjects();
+    loadPersonalProjects();
+    loadVeille();
+    loadEpreuves();
+    loadFormation();
+    loadProjectDetails();
 });
 
 function loadPersonalInfo() {
-    // Header & Footer
     const nameElements = document.querySelectorAll('.user-name');
     nameElements.forEach(el => el.textContent = personalInfo.name);
 
     const titleElements = document.querySelectorAll('.user-title');
     titleElements.forEach(el => el.textContent = personalInfo.title);
 
-    // Hero Section (Home)
     const heroTitle = document.getElementById('hero-title');
     if (heroTitle) heroTitle.textContent = personalInfo.heroTitle;
 
     const heroDesc = document.getElementById('hero-desc');
     if (heroDesc) heroDesc.textContent = personalInfo.heroDescription;
 
-    // Links
     const githubLinks = document.querySelectorAll('.github-link');
     githubLinks.forEach(el => el.href = personalInfo.github);
 
@@ -55,7 +52,6 @@ function loadProjects() {
         projectsContainer.innerHTML = projects.map(project => createProjectCard(project)).join('');
     }
 
-    // Section dédiée aux réalisations en milieu professionnel (alternance)
     const proContainer = document.getElementById('pro-projects-container');
     if (proContainer && typeof projetsPro !== 'undefined') {
         proContainer.innerHTML = projetsPro.map(project => createProjectCard(project)).join('');
@@ -100,51 +96,51 @@ function loadProjectDetails() {
     const urlParams = new URLSearchParams(window.location.search);
     const projectId = parseInt(urlParams.get('id'));
 
-    // Search in all project lists
-    const allProjects = [...projects, ...personalProjects, ...(typeof projetsPro !== 'undefined' ? projetsPro : []), ...(veille.projets || []), ...(epreuves.e4 || [])];
+    const allProjects = [
+        ...projects,
+        ...personalProjects,
+        ...(typeof projetsPro !== 'undefined' ? projetsPro : []),
+        ...(veille.projets || []),
+        ...(epreuves.e4 || [])
+    ];
     const project = allProjects.find(p => p.id === projectId);
 
     if (!project) return;
 
-    // Set Title & Description
     document.getElementById('project-title').textContent = project.title;
     document.getElementById('project-description').textContent = project.longDescription || project.description;
 
-    // Set Main Image
     const mainImage = document.getElementById('project-main-image');
     if (mainImage) mainImage.src = project.image;
 
-    // Set Tags
     const tagsContainer = document.getElementById('project-tags');
     if (tagsContainer) {
         tagsContainer.innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
     }
 
-    // Set Features
     const featuresList = document.getElementById('project-features');
     if (featuresList && project.features) {
         featuresList.innerHTML = project.features.map(feature => `<li>${feature}</li>`).join('');
     }
 
-    // Set Competences
     const competencesEl = document.getElementById('project-competences');
     if (competencesEl && project.competences) {
         competencesEl.textContent = project.competences.join(', ');
     }
 
-    // Set Team (if available)
     const teamEl = document.getElementById('project-team');
     if (teamEl && project.equipe) {
         teamEl.innerHTML = `<strong>Équipe :</strong> ${project.equipe.join(', ')}`;
         teamEl.style.display = 'block';
     }
 
-    // Set GitHub Link
     const githubLink = document.getElementById('project-github');
     if (githubLink) {
         if (project.github && project.github !== '') {
             githubLink.href = project.github;
             githubLink.style.display = '';
+            githubLink.style.cursor = '';
+            githubLink.style.opacity = '';
             githubLink.innerHTML = '<i class="fab fa-github" style="margin-right:8px;"></i> Voir sur GitHub';
         } else {
             githubLink.removeAttribute('href');
@@ -154,7 +150,6 @@ function loadProjectDetails() {
         }
     }
 
-    // Set Gallery
     const galleryContainer = document.getElementById('project-gallery');
     if (galleryContainer && project.gallery) {
         galleryContainer.innerHTML = project.gallery.map(img => `
@@ -164,7 +159,6 @@ function loadProjectDetails() {
         `).join('');
     }
 
-    // Set Code Examples (if available)
     const codeExamplesContainer = document.getElementById('code-examples-container');
     if (codeExamplesContainer && project.codeExamples && project.codeExamples.length > 0) {
         codeExamplesContainer.innerHTML = `
@@ -180,7 +174,6 @@ function loadProjectDetails() {
     }
 }
 
-// Helper function to escape HTML in code examples
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
@@ -217,7 +210,6 @@ function loadVeille() {
         `).join('');
     }
 
-    // Load Veille Projects (Tools developed)
     const veilleProjetsContainer = document.getElementById('veille-projets-container');
     if (veilleProjetsContainer && veille.projets) {
         veilleProjetsContainer.innerHTML = veille.projets.map(project => createProjectCard(project)).join('');
@@ -235,7 +227,6 @@ function loadFormation() {
         <p style="margin-top: 1rem;">${formation.description}</p>
     `;
 
-    // Diplômes détaillés
     const diplomesContainer = document.getElementById('diplomes-container');
     if (diplomesContainer && formation.diplomes) {
         diplomesContainer.innerHTML = formation.diplomes.map(d => `
@@ -248,7 +239,6 @@ function loadFormation() {
         `).join('');
     }
 
-    // Expériences professionnelles
     const expContainer = document.getElementById('experiences-container');
     if (expContainer && formation.experiences) {
         expContainer.innerHTML = formation.experiences.map(e => `
@@ -262,11 +252,9 @@ function loadFormation() {
     }
 }
 
-// Modal Functions for Gallery
 window.openModal = function (imageSrc) {
     let modal = document.getElementById('image-modal');
     if (!modal) {
-        // Create modal if it doesn't exist
         modal = document.createElement('div');
         modal.id = 'image-modal';
         modal.className = 'modal-overlay';
@@ -274,7 +262,6 @@ window.openModal = function (imageSrc) {
             <span class="modal-close" onclick="closeModal()">&times;</span>
             <img class="modal-content" id="modal-img">
         `;
-        // Close modal when clicking outside the image
         modal.onclick = function (e) {
             if (e.target === modal) {
                 closeModal();
@@ -285,13 +272,13 @@ window.openModal = function (imageSrc) {
     const modalImg = document.getElementById('modal-img');
     modalImg.src = imageSrc;
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden';
 };
 
 window.closeModal = function () {
     const modal = document.getElementById('image-modal');
     if (modal) {
         modal.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Restore scrolling
+        document.body.style.overflow = 'auto';
     }
 };
