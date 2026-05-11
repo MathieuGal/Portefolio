@@ -409,6 +409,55 @@ Ce projet met particulièrement l'accent sur les flux de communication multi-uti
 }`
                 }
             ]
+        },
+        {
+            id: 103,
+            title: "Patrimonia",
+            description: "Application de gestion de patrimoine personnel (binôme).",
+            longDescription: `Patrimonia est une application web full-stack conçue pour permettre à un utilisateur de centraliser et suivre l'évolution de l'ensemble de son patrimoine personnel.
+Le front-end est développé en React avec Vite comme bundler et Tailwind CSS pour la mise en forme, ce qui assure des temps de chargement courts et une interface responsive.
+Côté serveur, une API REST construite avec Node.js et Express expose les routes nécessaires (authentification, CRUD sur les actifs, calculs d'agrégats).
+La persistance des données est assurée par une base SQLite, choisie pour sa simplicité de déploiement et sa portabilité dans un conteneur Docker.
+L'authentification est gérée via JSON Web Tokens : le serveur signe un token à la connexion, le client le stocke et l'envoie à chaque requête protégée.
+Le code est organisé en couches (routes, contrôleurs, services, modèles) afin de séparer clairement la logique métier de l'accès aux données.
+L'ensemble du projet est conteneurisé avec Docker pour garantir un environnement reproductible entre les machines de développement et un éventuel serveur de production.
+Le travail a été mené en binôme avec Amory Danvy, en utilisant Git et GitHub pour la collaboration (branches, pull requests, revues croisées).
+Ce projet a permis de découvrir l'architecture client-serveur moderne et de pratiquer la mise en place d'une chaîne complète, du composant React jusqu'à la base SQLite.`,
+            tags: ["React", "Vite", "Tailwind", "Node.js", "Express", "SQLite", "JWT", "Docker"],
+            image: "js/Image/patrimonia-dashboard.png",
+            gallery: [
+                "js/Image/patrimonia-dashboard.png",
+                "js/Image/patrimonia-simulateur.png",
+                "js/Image/patrimonia-bilan.png"
+            ],
+            features: [
+                "Tableau de bord du patrimoine global",
+                "Suivi des actifs (immobilier, comptes, placements)",
+                "Authentification sécurisée par JWT",
+                "API REST Node.js / Express + SQLite",
+                "Déploiement conteneurisé via Docker"
+            ],
+            github: "https://github.com/amory-danvy/Patrimonia",
+            competences: ["Concevoir et développer une solution applicative", "Travailler en mode projet"],
+            equipe: ["Mathieu Gallienne", "Amory Danvy"],
+            codeExamples: [
+                {
+                    title: "Middleware d'authentification JWT (Express)",
+                    language: "javascript",
+                    code: `function authMiddleware(req, res, next) {
+    const header = req.headers.authorization;
+    if (!header) return res.status(401).json({ error: "Token manquant" });
+
+    const token = header.split(" ")[1];
+    try {
+        req.user = jwt.verify(token, process.env.JWT_SECRET);
+        next();
+    } catch (err) {
+        return res.status(401).json({ error: "Token invalide" });
+    }
+}`
+                }
+            ]
         }
     ]
 };
